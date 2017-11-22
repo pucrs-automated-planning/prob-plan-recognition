@@ -1082,6 +1082,7 @@ libff.o: /usr/include/sys/resource.h /usr/include/stdint.h
 # libff.o: /usr/include/_types/_uintmax_t.h /usr/include/sys/_types/_timeval.h
 # libff.o: /usr/include/machine/endian.h /usr/include/i386/endian.h
 # libff.o: /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h
+libff.o: /usr/include/alloca.h
 libff.o: /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h
 libff.o: /usr/include/sys/_types/_ct_rune_t.h
 libff.o: /usr/include/sys/_types/_rune_t.h /usr/include/sys/_types/_wchar_t.h
