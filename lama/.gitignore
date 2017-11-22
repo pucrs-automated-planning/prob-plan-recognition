@@ -1,8 +1,8 @@
 # Binaries
 
-lama/preprocess/preprocess
-lama/search/search
-lama/search/release-search
+preprocess/preprocess
+search/search
+search/release-search
 
 # CPP stuff
 

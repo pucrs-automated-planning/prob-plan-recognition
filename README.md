@@ -13,14 +13,16 @@ popd
 pushd lama/search
 make
 make release-search
+popd
 ```
 
 ### Building Plan2PR
 
 Only works in linux
 ```bash
-pusdh pr
+pushd pr
 bash build.sh
+poop
 ```
 
 ## Original Notes (From Ramirez):
