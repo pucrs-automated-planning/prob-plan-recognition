@@ -1,0 +1,5 @@
+Domain=MICONIC
+Problem=MICONICPROBLEM
+Preprocessing=0.072
+Fluents=37
+Operators=326

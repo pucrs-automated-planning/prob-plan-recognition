@@ -17,6 +17,12 @@ make release-search
 
 ### Building Plan2PR
 
+Only works in linux
+```bash
+pusdh pr
+bash build.sh
+```
+
 ## Original Notes (From Ramirez):
 
 - You'll need to compile the program for mapping PR tasks into planning tasks (see 'obs-compiler' folder) and put the resulting executable binary file ('plan2pr') inside this folder.
