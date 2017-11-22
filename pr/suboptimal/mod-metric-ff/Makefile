@@ -1060,17 +1060,18 @@ libff.o: libff.h ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 # libff.o: /usr/include/sys/_symbol_aliasing.h
 # libff.o: /usr/include/sys/_posix_availability.h /usr/include/machine/_types.h
 # libff.o: /usr/include/i386/_types.h
-libff.o: /usr/include/sys/_pthread/_pthread_types.h /usr/include/sys/wait.h
-libff.o: /usr/include/sys/_types/_pid_t.h /usr/include/sys/_types/_id_t.h
-libff.o: /usr/include/sys/signal.h /usr/include/sys/appleapiopts.h
-libff.o: /usr/include/machine/signal.h /usr/include/i386/signal.h
-libff.o: /usr/include/machine/_mcontext.h /usr/include/i386/_mcontext.h
-libff.o: /usr/include/mach/i386/_structs.h
-libff.o: /usr/include/sys/_pthread/_pthread_attr_t.h
-libff.o: /usr/include/sys/_types/_sigaltstack.h
-libff.o: /usr/include/sys/_types/_ucontext.h
-libff.o: /usr/include/sys/_types/_sigset_t.h
-libff.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_uid_t.h
+libff.o: /usr/include/sys/wait.h
+# libff.o: /usr/include/sys/_pthread/_pthread_types.h /usr/include/sys/wait.h
+# libff.o: /usr/include/sys/_types/_pid_t.h /usr/include/sys/_types/_id_t.h
+libff.o: /usr/include/sys/signal.h #/usr/include/sys/appleapiopts.h
+# libff.o: /usr/include/machine/signal.h /usr/include/i386/signal.h
+# libff.o: /usr/include/machine/_mcontext.h /usr/include/i386/_mcontext.h
+# libff.o: /usr/include/mach/i386/_structs.h
+# libff.o: /usr/include/sys/_pthread/_pthread_attr_t.h
+# libff.o: /usr/include/sys/_types/_sigaltstack.h
+# libff.o: /usr/include/sys/_types/_ucontext.h
+# libff.o: /usr/include/sys/_types/_sigset_t.h
+# libff.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_uid_t.h
 libff.o: /usr/include/sys/resource.h /usr/include/stdint.h
 libff.o: /usr/include/sys/_types/_int8_t.h /usr/include/sys/_types/_int16_t.h
 libff.o: /usr/include/sys/_types/_int32_t.h
