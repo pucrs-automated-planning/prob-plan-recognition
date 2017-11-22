@@ -17,7 +17,7 @@ class Metric_FF(Planner):
         Planner.__init__(self, domain, problem, index, max_time, max_mem)
 
     def execute(self):
-        cmd_string = './ff -O -E -o %s -f %s' % (self.domain, self.problem)
+        cmd_string = './pr/suboptimal/mod-metric-ff/ff -O -E -o %s -f %s' % (self.domain, self.problem)
         self.log = benchmark.Log(self.log_file)
         self.signal, self.time = benchmark.run(cmd_string, self.max_time, self.max_mem, self.log)
         self.gather_data()
@@ -43,7 +43,7 @@ class HSP(Planner):
             ub_string = ''
         else:
             ub_string = '-ub %s' % self.upper_bound
-        cmd_string = './hsp_f -strict -dba-semantics -rm -cost -rAH -use-lse -bfs %s -v 0 -ipc %s %s > %s.soln' % (
+        cmd_string = './pr/optimal/hsp_f -strict -dba-semantics -rm -cost -rAH -use-lse -bfs %s -v 0 -ipc %s %s > %s.soln' % (
         ub_string, self.domain, self.problem, self.noext_problem)
         self.log = benchmark.Log(self.log_file)
         self.signal, self.time = benchmark.run(cmd_string, self.max_time, self.max_mem, self.log)
@@ -96,7 +96,7 @@ class LAMA(Planner):
         if LAMA.greedy:
             cmd_string = './plan-greedy %s %s %s' % (self.domain, self.problem, self.result)
         else:
-            cmd_string = './plan %s %s %s' % (self.domain, self.problem, self.result)
+            cmd_string = './lama/plan.sh %s %s %s' % (self.domain, self.problem, self.result)
         self.log = benchmark.Log(self.log_file)
         self.signal, self.time = benchmark.run(cmd_string, self.max_time, self.max_mem, self.log)
         self.gather_data()
