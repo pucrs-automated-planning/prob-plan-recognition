@@ -38,9 +38,12 @@ public:
 class hash_pointer {
 public:
     size_t operator()(const void* p) const {
-        //return size_t(reinterpret_cast<int>(p));
-        std::hash<const void*> my_hash_class;
-        return my_hash_class(p);
+        return size_t(reinterpret_cast<long>(p));
+		// TODO Figure out why the code below does not work
+        // __gnu_cxx::hash<const void*> my_hash_class;
+		// TODO Figure out why the code below does not compile in modern linux
+		// std::hash<const void*> my_hash_class;
+		// return my_hash_class(p);
     }
 };
 

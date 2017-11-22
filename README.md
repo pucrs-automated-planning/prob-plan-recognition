@@ -8,9 +8,11 @@ Structured Ramirez's implementation of [Probabilistic plan recognition](http://d
 
 ```bash
 pushd lama/preprocess
+mkdir obj
 make
 popd
 pushd lama/search
+mkdir obj
 make
 make release-search
 popd
