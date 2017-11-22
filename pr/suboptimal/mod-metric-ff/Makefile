@@ -1073,15 +1073,15 @@ libff.o: /usr/include/sys/signal.h #/usr/include/sys/appleapiopts.h
 # libff.o: /usr/include/sys/_types/_sigset_t.h
 # libff.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_uid_t.h
 libff.o: /usr/include/sys/resource.h /usr/include/stdint.h
-libff.o: /usr/include/sys/_types/_int8_t.h /usr/include/sys/_types/_int16_t.h
-libff.o: /usr/include/sys/_types/_int32_t.h
-libff.o: /usr/include/sys/_types/_int64_t.h /usr/include/_types/_uint8_t.h
-libff.o: /usr/include/_types/_uint16_t.h /usr/include/_types/_uint32_t.h
-libff.o: /usr/include/_types/_uint64_t.h /usr/include/sys/_types/_intptr_t.h
-libff.o: /usr/include/sys/_types/_uintptr_t.h /usr/include/_types/_intmax_t.h
-libff.o: /usr/include/_types/_uintmax_t.h /usr/include/sys/_types/_timeval.h
-libff.o: /usr/include/machine/endian.h /usr/include/i386/endian.h
-libff.o: /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h
+# libff.o: /usr/include/sys/_types/_int8_t.h /usr/include/sys/_types/_int16_t.h
+# libff.o: /usr/include/sys/_types/_int32_t.h
+# libff.o: /usr/include/sys/_types/_int64_t.h /usr/include/_types/_uint8_t.h
+# libff.o: /usr/include/_types/_uint16_t.h /usr/include/_types/_uint32_t.h
+# libff.o: /usr/include/_types/_uint64_t.h /usr/include/sys/_types/_intptr_t.h
+# libff.o: /usr/include/sys/_types/_uintptr_t.h /usr/include/_types/_intmax_t.h
+# libff.o: /usr/include/_types/_uintmax_t.h /usr/include/sys/_types/_timeval.h
+# libff.o: /usr/include/machine/endian.h /usr/include/i386/endian.h
+# libff.o: /usr/include/sys/_endian.h /usr/include/libkern/_OSByteOrder.h
 libff.o: /usr/include/libkern/i386/_OSByteOrder.h /usr/include/alloca.h
 libff.o: /usr/include/sys/_types/_ct_rune_t.h
 libff.o: /usr/include/sys/_types/_rune_t.h /usr/include/sys/_types/_wchar_t.h
