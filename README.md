@@ -1,4 +1,23 @@
-# Notes:
+# Probabilistic Plan Recognition
+
+Structured Ramirez's implementation of [Probabilistic plan recognition](http://dblp.org/rec/conf/aaai/RamirezG10) organized in a neat repository with links to the dependencies.
+
+## Instructions
+
+### Building LAMA
+
+```bash
+pushd lama/preprocess
+make
+popd
+pushd lama/search
+make
+make release-search
+```
+
+### Building Plan2PR
+
+## Original Notes (From Ramirez):
 
 - You'll need to compile the program for mapping PR tasks into planning tasks (see 'obs-compiler' folder) and put the resulting executable binary file ('plan2pr') inside this folder.
 - Download LAMA sources from the IPC-6 homepage, http://bit.ly/aPzUJh. Extract the tarball and copy the contents from 'seq-sat-lama' folder into this one. See LAMA's README for instructions for building and using LAMA.
