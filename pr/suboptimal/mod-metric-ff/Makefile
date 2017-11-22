@@ -1054,7 +1054,8 @@ utility.o: /usr/include/sys/_types/_fsblkcnt_t.h
 utility.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 utility.o: /usr/include/sys/times.h output.h
 libff.o: libff.h ff.h /usr/include/stdlib.h #/usr/include/Availability.h
-libff.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
+# libff.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
+libff.o: /usr/include/_types.h
 libff.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 libff.o: /usr/include/sys/_symbol_aliasing.h
 libff.o: /usr/include/sys/_posix_availability.h /usr/include/machine/_types.h
