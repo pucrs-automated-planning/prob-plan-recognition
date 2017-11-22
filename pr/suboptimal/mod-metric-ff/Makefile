@@ -109,6 +109,7 @@ lint:
 	lclint -booltype Bool $(SOURCES) 2> output.lint
 
 # DO NOT DELETE
+# TODO add if statements for compilation in OS X
 
 # main.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
 # main.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
@@ -187,7 +188,7 @@ memory.o: /usr/include/sys/_symbol_aliasing.h
 memory.o: /usr/include/sys/_posix_availability.h
 memory.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 memory.o: /usr/include/sys/_pthread/_pthread_types.h
-memory.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
+# memory.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
 memory.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h
 memory.o: /usr/include/sys/_types/_rsize_t.h
 memory.o: /usr/include/sys/_types/_errno_t.h
@@ -257,7 +258,7 @@ memory.o: /usr/include/sys/_pthread/_pthread_key_t.h
 memory.o: /usr/include/sys/_types/_fsblkcnt_t.h
 memory.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 memory.o: /usr/include/sys/times.h memory.h inst_pre.h
-output.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+output.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 output.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 output.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 output.o: /usr/include/sys/_symbol_aliasing.h
@@ -333,7 +334,7 @@ output.o: /usr/include/sys/_pthread/_pthread_key_t.h
 output.o: /usr/include/sys/_types/_fsblkcnt_t.h
 output.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 output.o: /usr/include/sys/times.h utility.h output.h
-parse.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+parse.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 parse.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 parse.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 parse.o: /usr/include/sys/_symbol_aliasing.h
@@ -411,8 +412,8 @@ expressions.o: /usr/include/sys/_symbol_aliasing.h
 expressions.o: /usr/include/sys/_posix_availability.h
 expressions.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 expressions.o: /usr/include/sys/_pthread/_pthread_types.h
-expressions.o: /usr/include/Availability.h
-expressions.o: /usr/include/AvailabilityInternal.h
+# expressions.o: /usr/include/Availability.h
+# expressions.o: /usr/include/AvailabilityInternal.h
 expressions.o: /usr/include/sys/_types/_size_t.h
 expressions.o: /usr/include/sys/_types/_null.h
 expressions.o: /usr/include/sys/_types/_rsize_t.h
@@ -498,7 +499,7 @@ inst_pre.o: /usr/include/sys/_symbol_aliasing.h
 inst_pre.o: /usr/include/sys/_posix_availability.h
 inst_pre.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 inst_pre.o: /usr/include/sys/_pthread/_pthread_types.h
-inst_pre.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
+# inst_pre.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
 inst_pre.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h
 inst_pre.o: /usr/include/sys/_types/_rsize_t.h
 inst_pre.o: /usr/include/sys/_types/_errno_t.h
@@ -574,7 +575,7 @@ inst_pre.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_pre.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_pre.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_pre.o: inst_pre.h
-inst_easy.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+# inst_easy.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
 inst_easy.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 inst_easy.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 inst_easy.o: /usr/include/sys/_symbol_aliasing.h
@@ -656,7 +657,7 @@ inst_easy.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_easy.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_easy.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_easy.o: inst_pre.h inst_easy.h
-inst_hard.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+inst_hard.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 inst_hard.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 inst_hard.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 inst_hard.o: /usr/include/sys/_symbol_aliasing.h
@@ -738,7 +739,7 @@ inst_hard.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_hard.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_hard.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_hard.o: inst_pre.h inst_hard.h
-inst_final.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+inst_final.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 inst_final.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 inst_final.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 inst_final.o: /usr/include/sys/_symbol_aliasing.h
@@ -821,8 +822,9 @@ inst_final.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_final.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_final.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_final.o: inst_pre.h inst_final.h
-relax.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
-relax.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
+relax.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
+# relax.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
+relax.o: /usr/include/_types.h
 relax.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 relax.o: /usr/include/sys/_symbol_aliasing.h
 relax.o: /usr/include/sys/_posix_availability.h /usr/include/machine/_types.h
@@ -894,7 +896,7 @@ relax.o: /usr/include/sys/_types/_fsblkcnt_t.h
 relax.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 relax.o: /usr/include/sys/times.h output.h memory.h expressions.h relax.h
 relax.o: search.h
-search.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+search.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 search.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 search.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 search.o: /usr/include/sys/_symbol_aliasing.h
@@ -977,7 +979,7 @@ utility.o: /usr/include/sys/_symbol_aliasing.h
 utility.o: /usr/include/sys/_posix_availability.h
 utility.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 utility.o: /usr/include/sys/_pthread/_pthread_types.h
-utility.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
+# utility.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
 utility.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h
 utility.o: /usr/include/sys/_types/_rsize_t.h
 utility.o: /usr/include/sys/_types/_errno_t.h
@@ -1051,7 +1053,7 @@ utility.o: /usr/include/sys/_pthread/_pthread_key_t.h
 utility.o: /usr/include/sys/_types/_fsblkcnt_t.h
 utility.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 utility.o: /usr/include/sys/times.h output.h
-libff.o: libff.h ff.h /usr/include/stdlib.h /usr/include/Availability.h
+libff.o: libff.h ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 libff.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 libff.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 libff.o: /usr/include/sys/_symbol_aliasing.h
@@ -1130,7 +1132,7 @@ memory.o: /usr/include/sys/_symbol_aliasing.h
 memory.o: /usr/include/sys/_posix_availability.h
 memory.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 memory.o: /usr/include/sys/_pthread/_pthread_types.h
-memory.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
+# memory.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
 memory.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h
 memory.o: /usr/include/sys/_types/_rsize_t.h
 memory.o: /usr/include/sys/_types/_errno_t.h
@@ -1200,7 +1202,7 @@ memory.o: /usr/include/sys/_pthread/_pthread_key_t.h
 memory.o: /usr/include/sys/_types/_fsblkcnt_t.h
 memory.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 memory.o: /usr/include/sys/times.h memory.h inst_pre.h
-output.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+output.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 output.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 output.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 output.o: /usr/include/sys/_symbol_aliasing.h
@@ -1276,7 +1278,7 @@ output.o: /usr/include/sys/_pthread/_pthread_key_t.h
 output.o: /usr/include/sys/_types/_fsblkcnt_t.h
 output.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 output.o: /usr/include/sys/times.h utility.h output.h
-parse.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+parse.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 parse.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 parse.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 parse.o: /usr/include/sys/_symbol_aliasing.h
@@ -1354,8 +1356,8 @@ expressions.o: /usr/include/sys/_symbol_aliasing.h
 expressions.o: /usr/include/sys/_posix_availability.h
 expressions.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 expressions.o: /usr/include/sys/_pthread/_pthread_types.h
-expressions.o: /usr/include/Availability.h
-expressions.o: /usr/include/AvailabilityInternal.h
+# expressions.o: /usr/include/Availability.h
+# expressions.o: /usr/include/AvailabilityInternal.h
 expressions.o: /usr/include/sys/_types/_size_t.h
 expressions.o: /usr/include/sys/_types/_null.h
 expressions.o: /usr/include/sys/_types/_rsize_t.h
@@ -1441,7 +1443,7 @@ inst_pre.o: /usr/include/sys/_symbol_aliasing.h
 inst_pre.o: /usr/include/sys/_posix_availability.h
 inst_pre.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 inst_pre.o: /usr/include/sys/_pthread/_pthread_types.h
-inst_pre.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
+# inst_pre.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
 inst_pre.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h
 inst_pre.o: /usr/include/sys/_types/_rsize_t.h
 inst_pre.o: /usr/include/sys/_types/_errno_t.h
@@ -1517,7 +1519,7 @@ inst_pre.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_pre.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_pre.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_pre.o: inst_pre.h
-inst_easy.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+inst_easy.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 inst_easy.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 inst_easy.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 inst_easy.o: /usr/include/sys/_symbol_aliasing.h
@@ -1599,7 +1601,7 @@ inst_easy.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_easy.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_easy.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_easy.o: inst_pre.h inst_easy.h
-inst_hard.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+inst_hard.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 inst_hard.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 inst_hard.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 inst_hard.o: /usr/include/sys/_symbol_aliasing.h
@@ -1681,7 +1683,7 @@ inst_hard.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_hard.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_hard.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_hard.o: inst_pre.h inst_hard.h
-inst_final.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+inst_final.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 inst_final.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 inst_final.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 inst_final.o: /usr/include/sys/_symbol_aliasing.h
@@ -1764,7 +1766,7 @@ inst_final.o: /usr/include/sys/_types/_fsblkcnt_t.h
 inst_final.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 inst_final.o: /usr/include/sys/times.h output.h memory.h expressions.h
 inst_final.o: inst_pre.h inst_final.h
-relax.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+relax.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 relax.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 relax.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 relax.o: /usr/include/sys/_symbol_aliasing.h
@@ -1837,7 +1839,7 @@ relax.o: /usr/include/sys/_types/_fsblkcnt_t.h
 relax.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 relax.o: /usr/include/sys/times.h output.h memory.h expressions.h relax.h
 relax.o: search.h
-search.o: ff.h /usr/include/stdlib.h /usr/include/Availability.h
+search.o: ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 search.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 search.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 search.o: /usr/include/sys/_symbol_aliasing.h
@@ -1920,7 +1922,7 @@ utility.o: /usr/include/sys/_symbol_aliasing.h
 utility.o: /usr/include/sys/_posix_availability.h
 utility.o: /usr/include/machine/_types.h /usr/include/i386/_types.h
 utility.o: /usr/include/sys/_pthread/_pthread_types.h
-utility.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
+# utility.o: /usr/include/Availability.h /usr/include/AvailabilityInternal.h
 utility.o: /usr/include/sys/_types/_size_t.h /usr/include/sys/_types/_null.h
 utility.o: /usr/include/sys/_types/_rsize_t.h
 utility.o: /usr/include/sys/_types/_errno_t.h
@@ -1994,7 +1996,7 @@ utility.o: /usr/include/sys/_pthread/_pthread_key_t.h
 utility.o: /usr/include/sys/_types/_fsblkcnt_t.h
 utility.o: /usr/include/sys/_types/_fsfilcnt_t.h /usr/include/sys/timeb.h
 utility.o: /usr/include/sys/times.h output.h
-test_main.o: libff.h ff.h /usr/include/stdlib.h /usr/include/Availability.h
+test_main.o: libff.h ff.h /usr/include/stdlib.h #/usr/include/Availability.h
 test_main.o: /usr/include/AvailabilityInternal.h /usr/include/_types.h
 test_main.o: /usr/include/sys/_types.h /usr/include/sys/cdefs.h
 test_main.o: /usr/include/sys/_symbol_aliasing.h
