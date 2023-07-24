@@ -24,7 +24,7 @@ Only works in linux
 ```bash
 pushd pr/suboptimal
 bash build.sh
-pop
+popd
 ```
 
 ## Original Notes (From Ramirez):
