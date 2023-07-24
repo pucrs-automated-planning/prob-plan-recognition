@@ -22,9 +22,9 @@ popd
 
 Only works in linux
 ```bash
-pushd pr
+pushd pr/suboptimal
 bash build.sh
-poop
+pop
 ```
 
 ## Original Notes (From Ramirez):

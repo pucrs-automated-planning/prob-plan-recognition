@@ -1,6 +1,11 @@
 #IntelliJ stuff
 .idea
 
+# Flex and Byson
+lex*.c
+*.tab.c
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
