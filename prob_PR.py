@@ -34,25 +34,25 @@ def load_hypotheses():
 def write_report(experiment, hyps):
     outstream = open('report.txt', 'w')
 
-    print >> outstream, "Experiment=%s" % experiment
-    print >> outstream, "Num_Hyp=%d" % len(hyps)
+    print("Experiment=%s" % experiment, file=outstream)
+    print("Num_Hyp=%d" % len(hyps), file=outstream)
     for hyp in hyps:
-        print >> outstream, "Hyp_Atoms=%s" % ",".join(hyp.atoms)
+        print("Hyp_Atoms=%s" % ",".join(hyp.atoms), file=outstream)
         if hyp.test_failed:
-            print >> outstream, "Hyp_Test_Failed=True"
+            print("Hyp_Test_Failed=True", file=outstream)
         else:
-            print >> outstream, "Hyp_Test_Failed=False"
+            print("Hyp_Test_Failed=False", file=outstream)
 
-        print >> outstream, "Hyp_Cost_O=%f" % hyp.cost_O
-        print >> outstream, "Hyp_Cost_Not_O=%f" % hyp.cost_Not_O
-        print >> outstream, "Hyp_Prob_O=%f" % hyp.Probability_O
-        print >> outstream, "Hyp_Prob_Not_O=%f" % hyp.Probability_Not_O
-        print >> outstream, "Hyp_Plan_Time_O=%f" % hyp.Plan_Time_O
-        print >> outstream, "Hyp_Plan_Time_Not_O=%f" % hyp.Plan_Time_Not_O
-        print >> outstream, "Hyp_Trans_Time=%f" % hyp.trans_time
-        print >> outstream, "Hyp_Plan_Time=%f" % hyp.plan_time
-        print >> outstream, "Hyp_Test_Time=%f" % hyp.total_time
-        print >> outstream, "Hyp_Is_True=%s" % hyp.is_true
+        print("Hyp_Cost_O=%f" % hyp.cost_O, file=outstream)
+        print("Hyp_Cost_Not_O=%f" % hyp.cost_Not_O, file=outstream)
+        print("Hyp_Prob_O=%f" % hyp.Probability_O, file=outstream)
+        print("Hyp_Prob_Not_O=%f" % hyp.Probability_Not_O, file=outstream)
+        print("Hyp_Plan_Time_O=%f" % hyp.Plan_Time_O, file=outstream)
+        print("Hyp_Plan_Time_Not_O=%f" % hyp.Plan_Time_Not_O, file=outstream)
+        print("Hyp_Trans_Time=%f" % hyp.trans_time, file=outstream)
+        print("Hyp_Plan_Time=%f" % hyp.plan_time, file=outstream)
+        print("Hyp_Test_Time=%f" % hyp.total_time, file=outstream)
+        print("Hyp_Is_True=%s" % hyp.is_true, file=outstream)
 
     outstream.close()
 

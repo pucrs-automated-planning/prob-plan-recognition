@@ -2,18 +2,18 @@ import getopt, os, sys
 
 
 def usage():
-    print >> sys.stderr, "Parameters:"
-    print >> sys.stderr, "-e  --experiment <file>          Plan Recognition experiment files (tar'ed)"
-    print >> sys.stderr, "-h  --help                       Get Help"
-    print >> sys.stderr, "-t  --max-time <time>            Maximum allowed execution time (defaults to 1800 secs)"
-    print >> sys.stderr, "-m  --max-memory <time>          Maximum allowed memory consumption (defaults to 1Gb)"
-    print >> sys.stderr, "-O  --optimal                    Optimal Probabilistic PR"
-    print >> sys.stderr, "-G  --greedy                     Greedy LAMA (takes first solution as best)"
-    print >> sys.stderr, "-P  --hspr                       Use hspr for satisficing planning"
-    print >> sys.stderr, "-F  --ff                         Use FF for satisficing planning"
-    print >> sys.stderr, "-S  --simulation                 Simulation mode"
-    print >> sys.stderr, "-b  --beta <value>               Parameter strictly positive which penalizes non--optimal behavior"
-    print >> sys.stderr, "-D  --simulate-from-obs          Uses provided observations instead of generating them (Simulation mode)"
+    print("Parameters:", file=sys.stderr)
+    print("-e  --experiment <file>          Plan Recognition experiment files (tar'ed)", file=sys.stderr)
+    print("-h  --help                       Get Help", file=sys.stderr)
+    print("-t  --max-time <time>            Maximum allowed execution time (defaults to 1800 secs)", file=sys.stderr)
+    print("-m  --max-memory <time>          Maximum allowed memory consumption (defaults to 1Gb)", file=sys.stderr)
+    print("-O  --optimal                    Optimal Probabilistic PR", file=sys.stderr)
+    print("-G  --greedy                     Greedy LAMA (takes first solution as best)", file=sys.stderr)
+    print("-P  --hspr                       Use hspr for satisficing planning", file=sys.stderr)
+    print("-F  --ff                         Use FF for satisficing planning", file=sys.stderr)
+    print("-S  --simulation                 Simulation mode", file=sys.stderr)
+    print("-b  --beta <value>               Parameter strictly positive which penalizes non--optimal behavior", file=sys.stderr)
+    print("-D  --simulate-from-obs          Uses provided observations instead of generating them (Simulation mode)", file=sys.stderr)
 
 
 class Program_Options:
@@ -33,7 +33,7 @@ class Program_Options:
                                         "simulation",
                                         "simulate-from-obs"])
         except getopt.GetoptError:
-            print >> sys.stderr, "Missing or incorrect parameters specified!"
+            print("Missing or incorrect parameters specified!", file=sys.stderr)
             usage()
             sys.exit(1)
 
@@ -52,41 +52,41 @@ class Program_Options:
 
         for opcode, oparg in opts:
             if opcode in ('-h', '--help'):
-                print >> sys.stderr, "Help invoked!"
+                print("Help invoked!", file=sys.stderr)
                 usage()
                 sys.exit(0)
             if opcode in ('-e', '--experiment'):
                 self.exp_file = oparg
                 if not os.path.exists(self.exp_file):
-                    print >> sys.stderr, "File", self.exp_file, "does not exist"
-                    print >> sys.stderr, "Aborting"
+                    print("File", self.exp_file, "does not exist", file=sys.stderr)
+                    print("Aborting", file=sys.stderr)
                     sys.exit(1)
             if opcode in ('-t', '--max-time'):
                 try:
                     self.max_time = int(oparg)
                     if self.max_time <= 0:
-                        print >> sys.stderr, "Maximum time must be greater than zero"
+                        print("Maximum time must be greater than zero", file=sys.stderr)
                         sys.exit(1)
                 except ValueError:
-                    print >> sys.stderr, "Time must be an integer"
+                    print("Time must be an integer", file=sys.stderr)
                     sys.exit(1)
             if opcode in ('-b', '--beta'):
                 try:
                     self.beta = float(oparg)
                     if self.beta <= 0.0:
-                        print >> sys.stderr, "Beta must be a positive real number"
+                        print("Beta must be a positive real number", file=sys.stderr)
                         sys.exit(1)
                 except ValueError:
-                    print >> sys.stderr, "Beta must be a (positive) real number, rather than", oparg
+                    print("Beta must be a (positive) real number, rather than", oparg, file=sys.stderr)
                     sys.exit(1)
             if opcode in ('-m', '--max-memory'):
                 try:
                     self.max_memory = int(oparg)
                     if self.max_memory <= 0:
-                        print >> sys.stderr, "Maximum memory must be greater than zero"
+                        print("Maximum memory must be greater than zero", file=sys.stderr)
                         sys.exit(1)
                 except ValueError:
-                    print >> sys.stderr, "Memory amount must be an integer"
+                    print("Memory amount must be an integer", file=sys.stderr)
                     sys.exit(1)
             if opcode in ('-O', '--optimal'):
                 self.optimal = True
@@ -102,40 +102,40 @@ class Program_Options:
                 self.simulate_from_obs = True
 
         if self.exp_file is None:
-            print >> sys.stderr, "No experiment file was specified!!"
+            print("No experiment file was specified!!", file=sys.stderr)
             usage()
             sys.exit(1)
 
         os.system('tar jxvf %s' % self.exp_file)
         if not os.path.exists('domain.pddl'):
-            print >> sys.stderr, "No 'domain.pddl' file found in experiment file!"
+            print("No 'domain.pddl' file found in experiment file!", file=sys.stderr)
             usage()
             sys.exit(1)
         if not os.path.exists('template.pddl'):
-            print >> sys.stderr, "No 'template.pddl' file found in experiment file!"
+            print("No 'template.pddl' file found in experiment file!", file=sys.stderr)
             usage()
             sys.exit(1)
         if not os.path.exists('hyps.dat'):
-            print >> sys.stderr, "No 'hyps.dat' file found in experiment file!"
+            print("No 'hyps.dat' file found in experiment file!", file=sys.stderr)
             usage()
             sys.exit(1)
         if not self.simulation:
             if not os.path.exists('obs.dat'):
-                print >> sys.stderr, "No 'obs.dat' file found in experiment file!"
+                print("No 'obs.dat' file found in experiment file!", file=sys.stderr)
                 usage()
                 sys.exit(1)
             if not os.path.exists('real_hyp.dat'):
-                print >> sys.stderr, "No 'real_hyp.dat' file found in experiment file!"
+                print("No 'real_hyp.dat' file found in experiment file!", file=sys.stderr)
                 usage()
                 sys.exit(1)
 
     def print_options(self):
-        def print_yes(): print >> sys.stdout, "Yes"
+        def print_yes(): print("Yes", file=sys.stdout)
 
-        def print_no(): print >> sys.stdout, "No"
+        def print_no(): print("No", file=sys.stdout)
 
-        print >> sys.stdout, "Options set"
-        print >> sys.stdout, "==========="
-        print >> sys.stdout, "Experiment File:", self.exp_file
-        print >> sys.stdout, "Max. Time Allowed", self.max_time
-        print >> sys.stdout, "Max. Memory Allowed", self.max_memory
+        print("Options set", file=sys.stdout)
+        print("===========", file=sys.stdout)
+        print("Experiment File:", self.exp_file, file=sys.stdout)
+        print("Max. Time Allowed", self.max_time, file=sys.stdout)
+        print("Max. Memory Allowed", self.max_memory, file=sys.stdout)

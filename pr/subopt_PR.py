@@ -119,10 +119,10 @@ class Hypothesis :
 		for line in instream :
 			line = line.strip()
 			if '<HYPOTHESIS>' not in line :
-				print >> outstream, line
+				print(line, file=outstream)
 			else :
 				for atom in self.atoms :
-					print >> outstream, atom
+					print(atom, file=outstream)
 		
 		outstream.close()
 		instream.close()
@@ -160,30 +160,30 @@ def write_report( experiment, hyps ) :
 	
 	outstream = open( 'report.txt', 'w' )
 	
-	print >> outstream, "Experiment=%s"%experiment
-	print >> outstream, "Num_Hyp=%d"%len(hyps)
+	print("Experiment=%s"%experiment, file=outstream)
+	print("Num_Hyp=%d"%len(hyps), file=outstream)
 	for hyp in hyps :
-		print >> outstream, "Hyp_Atoms=%s"%",".join( hyp.atoms )
+		print("Hyp_Atoms=%s"%",".join( hyp.atoms ), file=outstream)
 		if hyp.test_failed :
-			print >> outstream, "Hyp_Score=unknown"
-			print >> outstream, "Hyp_Plan_Len=unknown"
+			print("Hyp_Score=unknown", file=outstream)
+			print("Hyp_Plan_Len=unknown", file=outstream)
 		else :
-			print >> outstream, "Hyp_Score=%f"%hyp.score
-			print >> outstream, "Hyp_Plan_Len=%d"%len(hyp.plan)
-		print >> outstream, "Hyp_Trans_Time=%f"%hyp.trans_time
-		print >> outstream, "Hyp_Plan_Time=%f"%hyp.plan_time
-		print >> outstream, "Hyp_Test_Time=%f"%hyp.total_time
-		print >> outstream, "Hyp_Is_True=%s"%hyp.is_true
+			print("Hyp_Score=%f"%hyp.score, file=outstream)
+			print("Hyp_Plan_Len=%d"%len(hyp.plan), file=outstream)
+		print("Hyp_Trans_Time=%f"%hyp.trans_time, file=outstream)
+		print("Hyp_Plan_Time=%f"%hyp.plan_time, file=outstream)
+		print("Hyp_Test_Time=%f"%hyp.total_time, file=outstream)
+		print("Hyp_Is_True=%s"%hyp.is_true, file=outstream)
 
 	outstream.close()
-	print max(hyps)
+	print(max(hyps))
 
 def main() :
 	cmdClean = 'rm -rf *.pddl *.dat *.log *.soln *.csv report.txt results.tar.bz2'
 	os.system(cmdClean)		
 	
 	startTime = time.time()
-	print sys.argv
+	print(sys.argv)
 	options = Program_Options( sys.argv[1:] )
 
 	hyps = load_hypotheses()
@@ -209,11 +209,11 @@ def main() :
 			break
 
 	if hyp and realHyp and hyp.score == realHyp.score :
-		print 'TRUE!'
+		print('TRUE!')
 	else :
-		print 'FALSE!'
+		print('FALSE!')
 
-	print("--- %s seconds ---" % (time.time() - startTime))	
+	print(("--- %s seconds ---" % (time.time() - startTime)))	
 
 if __name__ == '__main__' :
 	main()

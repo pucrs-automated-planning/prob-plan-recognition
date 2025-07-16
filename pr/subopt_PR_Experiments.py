@@ -122,10 +122,10 @@ class Hypothesis :
 		for line in instream :
 			line = line.strip()
 			if '<HYPOTHESIS>' not in line :
-				print >> outstream, line
+				print(line, file=outstream)
 			else :
 				for atom in self.atoms :
-					print >> outstream, atom
+					print(atom, file=outstream)
 		
 		outstream.close()
 		instream.close()
@@ -163,23 +163,23 @@ def write_report( experiment, hyps ) :
 	
 	outstream = open( 'report.txt', 'w' )
 	
-	print >> outstream, "Experiment=%s"%experiment
-	print >> outstream, "Num_Hyp=%d"%len(hyps)
+	print("Experiment=%s"%experiment, file=outstream)
+	print("Num_Hyp=%d"%len(hyps), file=outstream)
 	for hyp in hyps :
-		print >> outstream, "Hyp_Atoms=%s"%",".join( hyp.atoms )
+		print("Hyp_Atoms=%s"%",".join( hyp.atoms ), file=outstream)
 		if hyp.test_failed :
-			print >> outstream, "Hyp_Score=unknown"
-			print >> outstream, "Hyp_Plan_Len=unknown"
+			print("Hyp_Score=unknown", file=outstream)
+			print("Hyp_Plan_Len=unknown", file=outstream)
 		else :
-			print >> outstream, "Hyp_Score=%f"%hyp.score
-			print >> outstream, "Hyp_Plan_Len=%d"%len(hyp.plan)
-		print >> outstream, "Hyp_Trans_Time=%f"%hyp.trans_time
-		print >> outstream, "Hyp_Plan_Time=%f"%hyp.plan_time
-		print >> outstream, "Hyp_Test_Time=%f"%hyp.total_time
-		print >> outstream, "Hyp_Is_True=%s"%hyp.is_true
+			print("Hyp_Score=%f"%hyp.score, file=outstream)
+			print("Hyp_Plan_Len=%d"%len(hyp.plan), file=outstream)
+		print("Hyp_Trans_Time=%f"%hyp.trans_time, file=outstream)
+		print("Hyp_Plan_Time=%f"%hyp.plan_time, file=outstream)
+		print("Hyp_Test_Time=%f"%hyp.total_time, file=outstream)
+		print("Hyp_Is_True=%s"%hyp.is_true, file=outstream)
 
 	outstream.close()
-	print max(hyps)
+	print(max(hyps))
 
 def blocksWorld(observability, useFilteringMethod, threshold):
 	totalProblems = 0
@@ -206,16 +206,16 @@ def blocksWorld(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/blocks-world/block-words-aaai_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + 'full.tar.bz2'
 						else : planRecognitionProblem = 'experiments/blocks-world/block-words-aaai_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' +  str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/blocks-world/block-words-aaai_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else : planRecognitionProblem = 'experiments/blocks-world/block-words-aaai_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -256,16 +256,16 @@ def blocksWorld(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + 'full.tar.bz2'
 						else : planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' +  str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else : planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -309,16 +309,16 @@ def blocksWorld(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + 'full.tar.bz2'
 						else : planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' +  str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else : planRecognitionProblem = 'experiments/blocks-world/block-words_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -375,8 +375,8 @@ def blocksWorld(observability, useFilteringMethod, threshold):
 	if useFilteringMethod:
 		resultFileName = 'blocks-planrecognition-ramirezgeffner+filter-' + str(threshold) +'.txt'
 
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult = open(resultFileName, 'w')
 	fileResult.write(experimentsResult)
 
@@ -422,16 +422,16 @@ def campus(observability, useFilteringMethod, threshold):
 					planRecognitionProblem = 'experiments/campus/bui-campus_generic_hyp-0' + '_full_' + str(problem) + '.tar.bz2'
 				else : planRecognitionProblem = 'experiments/campus/bui-campus_generic_hyp-0' + '_' + str(obs) + '_' + str(problem) + '.tar.bz2'
 				
-				print '-> FILTERING CANDIDATE GOALS'
+				print('-> FILTERING CANDIDATE GOALS')
 				cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-				print cmdJar
+				print(cmdJar)
 				os.system(cmdJar)
 
 			if obs == 'full':
 				planRecognitionProblem = 'experiments/campus/bui-campus_generic_hyp-0' + '_full_' + str(problem) + ('_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 			else : planRecognitionProblem = 'experiments/campus/bui-campus_generic_hyp-0' + '_' + str(obs) + '_' + str(problem) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 			
-			print planRecognitionProblem
+			print(planRecognitionProblem)
 			counterProblems = counterProblems + 1
 			args = ['-s', '-e', planRecognitionProblem]
 			options = Program_Options( args )
@@ -485,8 +485,8 @@ def campus(observability, useFilteringMethod, threshold):
 		experimentsResult = experimentsResult + result
 		totalProblems = totalProblems + counterProblems
 
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult = open('campus-planrecognition-ramirezgeffner.txt', 'w')
 	fileResult.write(experimentsResult)
 
@@ -516,16 +516,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-5-5' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-5-5' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -569,16 +569,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p10-5-5' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p10-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p10-5-5' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p10-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -622,16 +622,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-10-10' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-10-10' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-10-10' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid-aaai_p5-10-10' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -675,16 +675,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-5-5' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-5-5' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -728,16 +728,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-10-10' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-10-10' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-10-10' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p5-10-10' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -781,16 +781,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-5-5' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-5-5' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-5-5' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -834,16 +834,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-10-10' + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-10-10' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)					
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-10-10' + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p10-10-10' + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -887,16 +887,16 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/easy-ipc-grid/easy-ipc-grid_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -956,8 +956,8 @@ def easyIPCGrid(observability, useFilteringMethod, threshold):
 	if useFilteringMethod:
 		resultFileName = 'easyipcgrid-planrecognition-ramirezgeffner+filter-' + str(threshold) +'.txt'
 
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult = open(resultFileName, 'w')
 	fileResult.write(experimentsResult)
 
@@ -989,16 +989,16 @@ def intrusionDetection(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -1044,16 +1044,16 @@ def intrusionDetection(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/intrusion-detection/intrusion-detection_p' + str(problemIntrusion) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -1113,8 +1113,8 @@ def intrusionDetection(observability, useFilteringMethod, threshold):
 	if useFilteringMethod:
 		resultFileName = 'intrusiondetection-planrecognition-ramirezgeffner+filter-' + str(threshold) +'.txt'
 
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult = open(resultFileName, 'w')
 	fileResult.write(experimentsResult)
 
@@ -1141,16 +1141,16 @@ def kitchen(observability, useFilteringMethod, threshold):
 					planRecognitionProblem = 'experiments/kitchen/kitchen_generic_hyp-0' + '_full_' + str(problem) + '.tar.bz2'
 				else : planRecognitionProblem = 'experiments/kitchen/kitchen_generic_hyp-0' + '_' + str(obs) + '_' + str(problem) + '.tar.bz2'
 				
-				print '-> FILTERING CANDIDATE GOALS'
+				print('-> FILTERING CANDIDATE GOALS')
 				cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-				print cmdJar
+				print(cmdJar)
 				os.system(cmdJar)
 
 			if obs == 'full':
 				planRecognitionProblem = 'experiments/kitchen/kitchen_generic_hyp-0' + ('_full_' + str(problem) + '_FILTERED.tar.bz2' if useFilteringMethod else '_full_' + str(problem) + '.tar.bz2')
 			else : planRecognitionProblem = 'experiments/kitchen/kitchen_generic_hyp-0' + '_' + str(obs) + '_' + str(problem) + '.tar.bz2'
 			
-			print planRecognitionProblem
+			print(planRecognitionProblem)
 			counterProblems = counterProblems + 1
 			args = ['-s', '-e', planRecognitionProblem]
 			options = Program_Options( args )
@@ -1199,16 +1199,16 @@ def kitchen(observability, useFilteringMethod, threshold):
 		if obs == 'full':
 			obsPrint = '100'
 
-		print counterFalsePositivePoblems
-		print counterTruePositivePoblems
-		print counterProblems
+		print(counterFalsePositivePoblems)
+		print(counterTruePositivePoblems)
+		print(counterProblems)
 
 		result = obsPrint + '\t' + str(accuracy) + '\t' + str(precision) + '\t' + str(recall) + '\t' + str(f1score) + '\t' + str(fallout) + '\t' + str(missrate) + '\t' + str(avgRecognizedGoals) + '\t' + str(totalTime) + '\n';
 		experimentsResult = experimentsResult + result
 		totalProblems = totalProblems + counterProblems
 
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult = open('kitchen-planrecognition-ramirezgeffner.txt', 'w')
 	fileResult.write(experimentsResult)
 
@@ -1237,16 +1237,16 @@ def logistics(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -1290,16 +1290,16 @@ def logistics(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -1343,16 +1343,16 @@ def logistics(observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_full.tar.bz2'
 						else: planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + '.tar.bz2'
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/logistics/logistics_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -1412,8 +1412,8 @@ def logistics(observability, useFilteringMethod, threshold):
 	if useFilteringMethod:
 		resultFileName = 'logistics-planrecognition-ramirezgeffner+filter-' + str(threshold) +'.txt'
 
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult = open(resultFileName, 'w')
 	fileResult.write(experimentsResult)
 
@@ -1443,16 +1443,16 @@ def doExperiments(domainName, observability, useFilteringMethod, threshold):
 							planRecognitionProblem = 'experiments/' + domainName + '/' + domainName + '_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 						else: planRecognitionProblem = 'experiments/' + domainName + '/' + domainName + '_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 						
-						print '-> FILTERING CANDIDATE GOALS'
+						print('-> FILTERING CANDIDATE GOALS')
 						cmdJar = 'java -jar planrecognizer-filter1.43.jar ' + planRecognitionProblem  + ' ' + threshold
-						print cmdJar
+						print(cmdJar)
 						os.system(cmdJar)
 
 					if obs == 'full':
 						planRecognitionProblem = 'experiments/' + domainName + '/' + domainName + '_p0' + str(problem) + '_hyp-' + str(problemHyp) + ('_full_FILTERED.tar.bz2' if useFilteringMethod else '_full.tar.bz2')
 					else: planRecognitionProblem = 'experiments/' + domainName + '/' + domainName + '_p0' + str(problem) + '_hyp-' + str(problemHyp) + '_' + str(obs) + '_' + str(problemObs) + ('_FILTERED.tar.bz2' if useFilteringMethod else '.tar.bz2')
 					
-					print planRecognitionProblem
+					print(planRecognitionProblem)
 					counterProblems = counterProblems + 1
 					args = ['-s', '-e', planRecognitionProblem]
 					options = Program_Options( args )
@@ -1512,8 +1512,8 @@ def doExperiments(domainName, observability, useFilteringMethod, threshold):
 		resultFileName = '-planrecognition-ramirezgeffner+filter-' + str(threshold) +'.txt'
 		fileResult = open(str(domainName) + resultFileName, 'w')
 	else : fileResult = open(str(domainName) + '-planrecognition-ramirezgeffner.txt', 'w')
-	print experimentsResult
-	print '$> Total Problems: ' + str(totalProblems)
+	print(experimentsResult)
+	print('$> Total Problems: ' + str(totalProblems))
 	fileResult.write(experimentsResult)
 
 def main():

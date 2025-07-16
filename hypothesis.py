@@ -69,8 +69,8 @@ class Probabilistic:
             if self.costs[id] < min_cost:
                 min_cost = self.costs[id]
 
-        print >> sys.stdout, "Min Cost:", min_cost
-        print >> sys.stdout, "Costs:", self.costs
+        print("Min Cost:", min_cost, file=sys.stdout)
+        print("Costs:", self.costs, file=sys.stdout)
         self.plan_time = G_Obs_time
         self.total_time = trans_cmd.time + self.plan_time
 
@@ -169,10 +169,10 @@ class Probabilistic:
         for line in instream:
             line = line.strip()
             if '<HYPOTHESIS>' not in line:
-                print >> outstream, line
+                print(line, file=outstream)
             else:
                 for atom in self.atoms:
-                    print >> outstream, atom
+                    print(atom, file=outstream)
 
         outstream.close()
         instream.close()

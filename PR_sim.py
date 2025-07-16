@@ -37,7 +37,7 @@ def generate_obs_and_test( hyps, options ) :
 		could_compute = agent.compute_plan()
 		if not could_compute :
 			outstream = open( 'error.txt', 'w' )
-			print >> outstream, "Could not compute optimal plan within given time bounds!"
+			print("Could not compute optimal plan within given time bounds!", file=outstream)
 			outstream.close()
 			sys.exit(0)
 		agents.append( agent )
@@ -64,27 +64,27 @@ def generate_obs_and_test( hyps, options ) :
 			try :
 				probs.append( [ h.Probability_O/sum for h in hyps ] )
 			except ZeroDivisionError :
-				print >> sys.stdout, "All P(O|G) = 0!!!"
-				print >> sys.stdout, "P(O|G) = ", posterior_probs
-				print >> sys.stdout, "Costs: ", ','.join(['/'.join([ str(h.costs['O']), str(h.costs['neg-O'])]) for h in hyps])
+				print("All P(O|G) = 0!!!", file=sys.stdout)
+				print("P(O|G) = ", posterior_probs, file=sys.stdout)
+				print("Costs: ", ','.join(['/'.join([ str(h.costs['O']), str(h.costs['neg-O'])]) for h in hyps]), file=sys.stdout)
 				sys.exit(1)
 			costs.append( [ '/'.join([ str(h.G_cost), str(h.costs['O']), str(h.costs['neg-O'])]) for h in hyps ] )
 
 		low_level_stream =  open( 'hyp-%d-probs_over_time.csv'%i, 'w' )
 		outstream = csv.writer( low_level_stream )
 		outstream.writerow( header )
-		print >> sys.stdout, header
+		print(header, file=sys.stdout)
 		for j in range(0, len(probs)) :
 			outstream.writerow( [str(j+1)] + probs[j] )
-			print >> sys.stdout, ','.join( [str(elem) for elem in [str(j)] + probs[j] ] )
+			print(','.join( [str(elem) for elem in [str(j)] + probs[j] ] ), file=sys.stdout)
 		low_level_stream.close()
 		low_level_stream = open( 'hyp-%d-costs_over_time.csv'%i, 'w' )
 		outstream = csv.writer( low_level_stream )
 		outstream.writerow( header )
-		print >> sys.stdout, header
+		print(header, file=sys.stdout)
 		for j in range(0, len(costs)) :
 			outstream.writerow( [str(j+1)] + costs[j] )
-			print >> sys.stdout, ','.join( [str(elem) for elem in [str(j)] + costs[j] ] )		
+			print(','.join( [str(elem) for elem in [str(j)] + costs[j] ] ), file=sys.stdout)		
 		low_level_stream.close()
 	
 	for i in range(0, len(agents)) :
@@ -123,44 +123,44 @@ def load_obs_and_test( hyps, options ) :
 		try :
 			probs.append( [ h.Probability_O/sum for h in hyps ] + [str(total_time)] )
 		except ZeroDivisionError :
-			print >> sys.stdout, "All P(O|G) = 0!!!"
-			print >> sys.stdout, "P(O|G) = ", posterior_probs
-			print >> sys.stdout, "Costs: ", ','.join(['/'.join([ str(h.costs['O']), str(h.costs['neg-O'])]) for h in hyps])
+			print("All P(O|G) = 0!!!", file=sys.stdout)
+			print("P(O|G) = ", posterior_probs, file=sys.stdout)
+			print("Costs: ", ','.join(['/'.join([ str(h.costs['O']), str(h.costs['neg-O'])]) for h in hyps]), file=sys.stdout)
 			probs.append( [ 0.0 for h in hyps ] + [str(total_time)] )
-		print probs
+		print(probs)
 		costs.append( [ '/'.join([ str(h.costs['O']), str(h.costs['neg-O'])]) for h in hyps ] )
 
 	low_level_stream =  open( 'hyp-likelihoods_over_time.csv', 'w' )
 	outstream = csv.writer( low_level_stream )
 	outstream.writerow( header )
-	print >> sys.stdout, header
+	print(header, file=sys.stdout)
 	for j in range(0, len(likelihoods)) :
 		outstream.writerow( [str(j+1)] + likelihoods[j] )
-		print >> sys.stdout, ','.join( [str(elem) for elem in [str(j)] + likelihoods[j] ] )
+		print(','.join( [str(elem) for elem in [str(j)] + likelihoods[j] ] ), file=sys.stdout)
 	low_level_stream.close()
 	low_level_stream =  open( 'hyp-probs_over_time.csv', 'w' )
 	outstream = csv.writer( low_level_stream )
 	outstream.writerow( header )
-	print >> sys.stdout, header
+	print(header, file=sys.stdout)
 	for j in range(0, len(probs)) :
 		outstream.writerow( [str(j+1)] + probs[j] )
-		print >> sys.stdout, ','.join( [str(elem) for elem in [str(j)] + probs[j] ] )
+		print(','.join( [str(elem) for elem in [str(j)] + probs[j] ] ), file=sys.stdout)
 	low_level_stream.close()
 	low_level_stream = open( 'hyp-costs_over_time.csv', 'w' )
 	outstream = csv.writer( low_level_stream )
 	outstream.writerow( header )
-	print >> sys.stdout, header
+	print(header, file=sys.stdout)
 	for j in range(0, len(costs)) :
 		outstream.writerow( [str(j+1)] + costs[j] )
-		print >> sys.stdout, ','.join( [str(elem) for elem in [str(j)] + costs[j] ] )		
+		print(','.join( [str(elem) for elem in [str(j)] + costs[j] ] ), file=sys.stdout)		
 	low_level_stream.close()
 	low_level_stream = open( 'hyp-deltas_over_time.csv', 'w' )
 	outstream = csv.writer( low_level_stream )
 	outstream.writerow( header )
-	print >> sys.stdout, header
+	print(header, file=sys.stdout)
 	for j in range(0, len(deltas)) :
 		outstream.writerow( [str(j+1)] + deltas[j] )
-		print >> sys.stdout, ','.join( [str(elem) for elem in [str(j)] + deltas[j] ] )		
+		print(','.join( [str(elem) for elem in [str(j)] + deltas[j] ] ), file=sys.stdout)		
 	low_level_stream.close()
 
 	# pack logs, csvs and report.txt
@@ -173,7 +173,7 @@ def load_obs_and_test( hyps, options ) :
 	
 
 def main() :
-	print sys.argv
+	print(sys.argv)
 	options = Program_Options( sys.argv[1:] )
 
 	if options.greedy :

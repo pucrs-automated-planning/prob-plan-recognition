@@ -1,13 +1,13 @@
 import getopt, os, sys
 
 def usage() :
-	print >> sys.stderr, "Parameters:"
-	print >> sys.stderr, "-e  --experiment <file>          Plan Recognition experiment files (tar'ed)"
-	print >> sys.stderr, "-h  --help                       Get Help"
-	print >> sys.stderr, "-t  --max-time <time>            Maximum allowed execution time (defaults to 1800 secs)"
-	print >> sys.stderr, "-m  --max-memory <time>          Maximum allowed memory consumption (defaults to 1Gb)"
-	print >> sys.stderr, "-s  --simple                     Simple inference (max. #obs accounted in relaxed plan)"
-	print >> sys.stderr, "-B  --bfs                        Bypass EHC search and solve the problem by Greedy Best First Search"
+	print("Parameters:", file=sys.stderr)
+	print("-e  --experiment <file>          Plan Recognition experiment files (tar'ed)", file=sys.stderr)
+	print("-h  --help                       Get Help", file=sys.stderr)
+	print("-t  --max-time <time>            Maximum allowed execution time (defaults to 1800 secs)", file=sys.stderr)
+	print("-m  --max-memory <time>          Maximum allowed memory consumption (defaults to 1Gb)", file=sys.stderr)
+	print("-s  --simple                     Simple inference (max. #obs accounted in relaxed plan)", file=sys.stderr)
+	print("-B  --bfs                        Bypass EHC search and solve the problem by Greedy Best First Search", file=sys.stderr)
 
 class Program_Options :
 
@@ -22,7 +22,7 @@ class Program_Options :
 							"simple",
 							"bfs"] )
 		except getopt.GetoptError :
-			print >> sys.stderr, "Missing or incorrect parameters specified!"
+			print("Missing or incorrect parameters specified!", file=sys.stderr)
 			usage()
 			sys.exit(1)
 
@@ -36,32 +36,32 @@ class Program_Options :
 		self.bfs = False
 		for opcode, oparg in opts :
 			if opcode in ( '-h', '--help' ) :
-				print >> sys.stderr, "Help invoked!"
+				print("Help invoked!", file=sys.stderr)
 				usage()
 				sys.exit(0)
 			if opcode in ('-e', '--experiment' ) :
 				self.exp_file = oparg
 				if not os.path.exists( self.exp_file ) :
-					print >> sys.stderr, "File", self.exp_file, "does not exist"
-					print >> sys.stderr, "Aborting"
+					print("File", self.exp_file, "does not exist", file=sys.stderr)
+					print("Aborting", file=sys.stderr)
 					sys.exit(1)
 			if opcode in ('-t', '--max-time' ) :
 				try :
 					self.max_time = int(oparg)
 					if self.max_time <= 0 :
-						print >> sys.stderr, "Maximum time must be greater than zero"
+						print("Maximum time must be greater than zero", file=sys.stderr)
 						sys.exit(1)
 				except ValueError :
-					print >> sys.stderr, "Time must be an integer"
+					print("Time must be an integer", file=sys.stderr)
 					sys.exit(1)
 			if opcode in ('-m', '--max-memory' ) :
 				try :
 					self.max_memory = int(oparg)
 					if self.max_memory <= 0 :
-						print >> sys.stderr, "Maximum memory must be greater than zero"
+						print("Maximum memory must be greater than zero", file=sys.stderr)
 						sys.exit(1)
 				except ValueError :
-					print >> sys.stderr, "Memory amount must be an integer"
+					print("Memory amount must be an integer", file=sys.stderr)
 					sys.exit(1)
 			if opcode in ('-s', '--simple' ) :
 				self.simple_pr = True	
@@ -69,7 +69,7 @@ class Program_Options :
 				self.bfs = True
 
 		if self.exp_file is None :
-			print >> sys.stderr, "No experiment file was specified!!"
+			print("No experiment file was specified!!", file=sys.stderr)
 			usage()
 			sys.exit(1)	
 	
@@ -77,32 +77,32 @@ class Program_Options :
 		if not os.path.exists( 'domain.pddl' ) :
 			os.system( 'tar -jxvf %s'%self.exp_file + ' --strip-components 1')
 			if not os.path.exists( 'domain.pddl' ) :
-				print >> sys.stderr, "No 'domain.pddl' file found in experiment file!"
+				print("No 'domain.pddl' file found in experiment file!", file=sys.stderr)
 				usage()
 				sys.exit(1)
 		if not os.path.exists( 'template.pddl' ) :
-			print >> sys.stderr, "No 'template.pddl' file found in experiment file!"
+			print("No 'template.pddl' file found in experiment file!", file=sys.stderr)
 			usage()
 			sys.exit(1)
 		if not os.path.exists( 'hyps.dat' ) :
-			print >> sys.stderr, "No 'hyps.dat' file found in experiment file!"
+			print("No 'hyps.dat' file found in experiment file!", file=sys.stderr)
 			usage()
 			sys.exit(1)
 		if not os.path.exists( 'obs.dat' ) :
-			print >> sys.stderr, "No 'obs.dat' file found in experiment file!"
+			print("No 'obs.dat' file found in experiment file!", file=sys.stderr)
 			usage()
 			sys.exit(1)
 		if not os.path.exists( 'real_hyp.dat' ) :
-			print >> sys.stderr, "No 'real_hyp.dat' file found in experiment file!"
+			print("No 'real_hyp.dat' file found in experiment file!", file=sys.stderr)
 			usage()
 			sys.exit(1)
 
 	def print_options( self ) :
-		def print_yes() : print >> sys.stdout, "Yes"
-		def print_no() : print >> sys.stdout, "No"
+		def print_yes() : print("Yes", file=sys.stdout)
+		def print_no() : print("No", file=sys.stdout)
 		
-		print >> sys.stdout, "Options set"
-		print >> sys.stdout, "==========="
-		print >> sys.stdout, "Experiment File:", self.exp_file
-		print >> sys.stdout, "Max. Time Allowed", self.max_time
-		print >> sys.stdout, "Max. Memory Allowed", self.max_memory
+		print("Options set", file=sys.stdout)
+		print("===========", file=sys.stdout)
+		print("Experiment File:", self.exp_file, file=sys.stdout)
+		print("Max. Time Allowed", self.max_time, file=sys.stdout)
+		print("Max. Memory Allowed", self.max_memory, file=sys.stdout)
