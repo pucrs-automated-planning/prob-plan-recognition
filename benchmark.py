@@ -60,7 +60,7 @@ def run(cmd, timeout, memory, log=None, verbose=True):
       timeout - timeout in CPU seconds
       memory  - maximum heap size allowed in Megabytes
       log     - the log file (of class benchmark.Log)
-      verbose - If true, also print the heap and time restrictions,
+      verbose - If true, also print(the heap and time restrictions,)
                 the return code of the program and elapsed time.
                 If false, this info is logged if there is a log,
                 but not printed.
@@ -113,8 +113,7 @@ def run(cmd, timeout, memory, log=None, verbose=True):
     if signal == 0:
         print("\nTime spent: %.3f seconds" % time_passed, file=log(log_mode))
     else:
-        print("\nFailed! [Signal %d, Time %.3f seconds]" \
-              % (signal, time_passed), file=log(log_mode))
+        print("\nFailed! [Signal %d, Time %.3f seconds]" % (signal, time_passed), file=log(log_mode))
 
     return signal, time_passed
 

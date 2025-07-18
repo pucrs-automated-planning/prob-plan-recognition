@@ -109,7 +109,7 @@ def parse_domain(domain_pddl):
     opt_constants = opt_types
   pddl_types.set_supertypes(the_types)
   # for type in the_types:
-  #   print repr(type), type.supertype_names
+  #   print(repr(type), type.supertype_names)
   yield the_types
 
   if opt_constants[0] == ":constants":
