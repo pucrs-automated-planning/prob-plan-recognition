@@ -66,7 +66,8 @@ def main():
 
     hyps = load_hypotheses()
 
-    hyp_time_bounds = [options.max_time / len(hyps) for h in hyps]
+    # hack to avoid integer division
+    hyp_time_bounds = [options.max_time // len(hyps) for h in hyps]
 
     for i in range(0, len(hyps)):
         hyps[i].test(i, hyp_time_bounds[i], options.max_memory, options.optimal)
@@ -74,7 +75,7 @@ def main():
             hyps[i].test_failed = True
         remainder = hyp_time_bounds[i] - hyps[i].total_time
         if remainder > 0:
-            extra = remainder / (len(hyps) - i)
+            extra = remainder // (len(hyps) - i)
             for j in range(i + 1, len(hyps)):
                 hyp_time_bounds[j] += extra
 

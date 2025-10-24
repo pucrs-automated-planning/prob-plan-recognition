@@ -1,4 +1,3 @@
-import string
 from . import conditions
 
 def parse_expression(exp):
@@ -7,7 +6,7 @@ def parse_expression(exp):
         return PrimitiveNumericExpression(functionsymbol,
                                           [conditions.parse_term(arg) for arg in exp[1:]])
     elif exp.replace(".","").isdigit():
-        return NumericConstant(string.atof(exp))
+        return NumericConstant(float(exp))
     else:
         return PrimitiveNumericExpression(exp,[])
 

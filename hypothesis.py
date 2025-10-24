@@ -99,7 +99,8 @@ class Probabilistic:
         min_cost = 1e7
         time_bound = max_time
         if optimal:
-            time_bound = max_time / 2
+            # hack to avoid integer division
+            time_bound = max_time // 2
             for id, domain, instance in self.walk('prob-%s-PR' % index):
                 plan_for_G_Obs_cmd = planners.HSP(domain, instance, index, time_bound, max_mem)
                 plan_for_G_Obs_cmd.execute()
@@ -122,7 +123,8 @@ class Probabilistic:
 
             # if remainder > 0 :
             #	time_bound = (max_time / 3 ) + (remainder / 2 )
-            time_bound = max_time / 2
+            # hack to avoid integer division
+            time_bound = max_time // 2
             for id, domain, instance in self.walk('prob-%s-PR' % index):
                 plan_for_G_Obs_cmd = planners.LAMA(domain, instance, index, time_bound, max_mem)
                 plan_for_G_Obs_cmd.execute()
