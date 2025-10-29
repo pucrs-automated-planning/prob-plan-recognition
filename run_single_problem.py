@@ -2,7 +2,7 @@
 """
 Script to run prob_PR.py for a given problem file and generate a summary report.
 
-Usage: python3 run_single_problem.py <problem_file_path>
+Usage: python3 run_single_problem.py <problem_file_path> <time_limit_seconds> <memory_limit_mb> [--optimal]
 """
 
 import sys
@@ -12,6 +12,7 @@ import tarfile
 import tempfile
 import shutil
 import time
+import argparse
 
 
 def count_observations(obs_file_path):
@@ -76,13 +77,17 @@ def parse_report(report_file_path):
     return num_hyps, spread, correct
 
 
-def run_recognizer(problem_file_path):
+def run_recognizer(problem_file_path, time_limit, memory_limit, optimal):
     """Run prob_PR.py with the given problem file and measure execution time."""
     if not os.path.exists(problem_file_path):
         raise FileNotFoundError(f"Problem file not found: {problem_file_path}")
     
     # Build command
-    cmd = ['python3', 'prob_PR.py', '-e', problem_file_path]
+    cmd = ['python3', 'prob_PR.py', '-e', problem_file_path, 
+           '-t', str(time_limit), '-m', str(memory_limit)]
+    
+    if optimal:
+        cmd.append('-O')
     
     print(f"Running: {' '.join(cmd)}")
     
@@ -132,16 +137,29 @@ TIME = {elapsed_time:.6f}
 
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python3 run_single_problem.py <problem_file_path>")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(
+        description='Run prob_PR.py for a given problem file and generate a summary report.'
+    )
+    parser.add_argument('problem_file', help='Path to the problem file')
+    parser.add_argument('time_limit', type=int, nargs='?', default=1800, 
+                        help='Time limit in seconds (default: 1800)')
+    parser.add_argument('memory_limit', type=int, nargs='?', default=2048,
+                        help='Memory limit in MB (default: 2048)')
+    parser.add_argument('-o', '--optimal', action='store_true', 
+                        help='Use optimal planning (if flag is present)')
     
-    problem_file_path = sys.argv[1]
+    args = parser.parse_args()
+    
+    problem_file_path = args.problem_file
+    time_limit = args.time_limit
+    memory_limit = args.memory_limit
+    optimal = args.optimal
     
     try:
         # Step 1: Run the recognizer
-        print(f"\n=== Running recognizer for {problem_file_path} ===\n")
-        elapsed_time = run_recognizer(problem_file_path)
+        print(f"\n=== Running recognizer for {problem_file_path} ===")
+        print(f"Time limit: {time_limit}s, Memory limit: {memory_limit}MB, Optimal: {optimal}\n")
+        elapsed_time = run_recognizer(problem_file_path, time_limit, memory_limit, optimal)
         print(f"\nRecognizer completed in {elapsed_time:.6f} seconds")
         
         # Step 2: Extract results
