@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 # Parameterized build script for hsp_f
 # Usage: ./parameterized_build [CXX] [OPTIMIZATION] [STD] [EXTRA_FLAGS] [LINK_FLAGS] [OUTPUT]
 #
@@ -19,19 +21,6 @@ STD="${3:-c++98}"
 EXTRA_FLAGS="${4:-}"
 LINK_FLAGS="${5:-}"
 OUTPUT="${6:-hsp_f}"
-
-echo "=========================================="
-echo "Building with the following parameters:"
-echo "  Compiler:      $CXX"
-echo "  Optimization:  $OPTIMIZATION"
-echo "  C++ Standard:  $STD"
-echo "  Extra flags:   $EXTRA_FLAGS"
-echo "  Link flags:    $LINK_FLAGS"
-echo "  Output binary: $OUTPUT"
-echo "=========================================="
-echo
-
-set -x
 
 # Compile all source files
 $CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ hsp_f.ccx
@@ -77,12 +66,3 @@ $CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS $LINK_FLAGS -o $OUTPUT \
   cost_table.o additive.o atomset.o resource.o seq_reg.o forward.o \
   search_base.o hashtable.o ida.o nodeset.o bfs.o base.o parser.o \
   grammar.o scanner.o
-
-set +x
-
-echo
-echo "=========================================="
-echo "Build completed successfully!"
-echo "Output binary: $OUTPUT"
-ls -lh $OUTPUT
-echo "=========================================="
