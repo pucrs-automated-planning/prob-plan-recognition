@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Parameterized build script for hsp_f
+# Usage: ./parameterized_build [CXX] [OPTIMIZATION] [STD] [EXTRA_FLAGS] [LINK_FLAGS] [OUTPUT]
+#
+# Examples (default - same as build script):
+#   ./parameterized_build
+#   ./parameterized_build g++ -O6 c++98 "" "" hsp_f
+#
+# Examples (with extra flags):
+#   ./parameterized_build g++-7 -O2 c++98 "-fpermissive" "-static" hsp_f_static
+#   ./parameterized_build g++ -O3 c++11 "" "" hsp_f_dynamic
+#   ./parameterized_build g++-7 -O2 c++98 "-fpermissive -Wall" "-static" hsp_f_custom
+
+# Default values (same as pr/seq-opt-hspsf/build)
+CXX="${1:-g++}"
+OPTIMIZATION="${2:--O6}"
+STD="${3:-c++98}"
+EXTRA_FLAGS="${4:-}"
+LINK_FLAGS="${5:-}"
+OUTPUT="${6:-hsp_f}"
+
+echo "=========================================="
+echo "Building with the following parameters:"
+echo "  Compiler:      $CXX"
+echo "  Optimization:  $OPTIMIZATION"
+echo "  C++ Standard:  $STD"
+echo "  Extra flags:   $EXTRA_FLAGS"
+echo "  Link flags:    $LINK_FLAGS"
+echo "  Output binary: $OUTPUT"
+echo "=========================================="
+echo
+
+set -x
+
+# Compile all source files
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ hsp_f.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ rational.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ index_type.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ name.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ ptr_table.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ char_map.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ string_table.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ numeric_type.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ graph.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ enumerators.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ rng.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ problem.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ soft.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ search.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ heuristic.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ stats.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ exec.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ plans.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ preprocess.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ cost_table.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ additive.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ atomset.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ resource.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ seq_reg.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ forward.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ search_base.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ hashtable.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ ida.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ nodeset.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ bfs.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ base.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ parser.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ grammar.ccx
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS -c -x c++ scanner.ccx
+
+# Link all object files
+$CXX $OPTIMIZATION -std=$STD $EXTRA_FLAGS $LINK_FLAGS -o $OUTPUT \
+  hsp_f.o rational.o index_type.o name.o ptr_table.o char_map.o \
+  string_table.o numeric_type.o graph.o enumerators.o rng.o problem.o \
+  soft.o search.o heuristic.o stats.o exec.o plans.o preprocess.o \
+  cost_table.o additive.o atomset.o resource.o seq_reg.o forward.o \
+  search_base.o hashtable.o ida.o nodeset.o bfs.o base.o parser.o \
+  grammar.o scanner.o
+
+set +x
+
+echo
+echo "=========================================="
+echo "Build completed successfully!"
+echo "Output binary: $OUTPUT"
+ls -lh $OUTPUT
+echo "=========================================="
