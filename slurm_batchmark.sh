@@ -1,6 +1,6 @@
 #!/bin/bash -l
 
-#SBATCH --job-name=SAT-Goal-Recognition
+#SBATCH --job-name=Prob-Goal-Recognition
 #SBATCH --nodes=1 # number of nodes
 #SBATCH --ntasks=20 # number of tasks total
 #SBATCH --cpus-per-task=1 # number of cores
