@@ -77,7 +77,7 @@ def parse_report(report_file_path):
     return num_hyps, spread, correct
 
 
-def run_recognizer(problem_file_path, time_limit, memory_limit, optimal):
+def run_recognizer(problem_file_path, time_limit, memory_limit, optimal, fast_downward):
     """Run prob_PR.py with the given problem file and measure execution time."""
     if not os.path.exists(problem_file_path):
         raise FileNotFoundError(f"Problem file not found: {problem_file_path}")
@@ -88,6 +88,8 @@ def run_recognizer(problem_file_path, time_limit, memory_limit, optimal):
     
     if optimal:
         cmd.append('-O')
+    if fast_downward:
+        cmd.append('-L')
     
     print(f"Running: {' '.join(cmd)}")
     
@@ -145,8 +147,10 @@ def main():
                         help='Time limit in seconds (default: 1800)')
     parser.add_argument('memory_limit', type=int, nargs='?', default=2048,
                         help='Memory limit in MB (default: 2048)')
-    parser.add_argument('-o', '--optimal', action='store_true', 
+    parser.add_argument('-O', '--optimal', action='store_true',
                         help='Use optimal planning (if flag is present)')
+    parser.add_argument('-L', '--fast-downward', action='store_true',
+                        help='Use Fast Downward for planning (if flag is present)')
     
     args = parser.parse_args()
     
@@ -154,12 +158,13 @@ def main():
     time_limit = args.time_limit
     memory_limit = args.memory_limit
     optimal = args.optimal
+    fast_downward = args.fast_downward
     
     try:
         # Step 1: Run the recognizer
         print(f"\n=== Running recognizer for {problem_file_path} ===")
-        print(f"Time limit: {time_limit}s, Memory limit: {memory_limit}MB, Optimal: {optimal}\n")
-        elapsed_time = run_recognizer(problem_file_path, time_limit, memory_limit, optimal)
+        print(f"Time limit: {time_limit}s, Memory limit: {memory_limit}MB, Optimal: {optimal}, Fast Downward: {fast_downward}\n")
+        elapsed_time = run_recognizer(problem_file_path, time_limit, memory_limit, optimal, fast_downward)
         print(f"\nRecognizer completed in {elapsed_time:.6f} seconds")
         
         # Step 2: Extract results

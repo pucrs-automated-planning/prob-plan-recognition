@@ -23,8 +23,10 @@ def main():
                         help='Time limit in seconds (default: 1800)')
     parser.add_argument('memory_limit', type=int, nargs='?', default=2048,
                         help='Memory limit in MB (default: 2048)')
-    parser.add_argument('-o', '--optimal', action='store_true',
+    parser.add_argument('-O', '--optimal', action='store_true',
                         help='Use optimal planning (if flag is present)')
+    parser.add_argument('-L', '--fast-downward', action='store_true',
+                        help='Use Fast Downward for planning (if flag is present)')
     
     args = parser.parse_args()
 
@@ -45,12 +47,14 @@ def main():
     time_limit = args.time_limit
     memory_limit = args.memory_limit
     optimal = args.optimal
+    fast_downward = args.fast_downward
     
     print(f"Domain argument: {dom}")
     print(f"Observability argument: {deg}")
     print(f"Time limit: {time_limit}s")
     print(f"Memory limit: {memory_limit}MB")
     print(f"Optimal: {optimal}")
+    print(f"Fast Downward: {fast_downward}")
 
     DATASET_DOM_DEG_PATH = f"{DATASET_PATH}/{dom}/{deg}"
     RESULTS_DOM_DEG_PATH = f"{RESULTS_PATH}/{dom}/{deg}"
@@ -87,7 +91,9 @@ def main():
                 cmd = ["python3", "run_single_problem.py", problem.path, 
                        str(time_limit), str(memory_limit)]
                 if optimal:
-                    cmd.append('-o')
+                    cmd.append('-O')
+                if fast_downward:
+                    cmd.append('-L')
                 
                 result = subprocess.run(
                     cmd, 

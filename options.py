@@ -11,6 +11,7 @@ def usage():
     print("-G  --greedy                     Greedy LAMA (takes first solution as best)", file=sys.stderr)
     print("-P  --hspr                       Use hspr for satisficing planning", file=sys.stderr)
     print("-F  --ff                         Use FF for satisficing planning", file=sys.stderr)
+    print("-L  --fast-downward              Use Fast Downward for planning", file=sys.stderr)
     print("-S  --simulation                 Simulation mode", file=sys.stderr)
     print("-b  --beta <value>               Parameter strictly positive which penalizes non--optimal behavior", file=sys.stderr)
     print("-D  --simulate-from-obs          Uses provided observations instead of generating them (Simulation mode)", file=sys.stderr)
@@ -20,7 +21,7 @@ class Program_Options:
     def __init__(self, args):
         try:
             opts, args = getopt.getopt(args,
-                                       "e:ht:m:OGSb:PFD",
+                                       "e:ht:m:OGSb:PFDL",
                                        ["experiment=",
                                         "help",
                                         "max-time=",
@@ -28,6 +29,7 @@ class Program_Options:
                                         "beta=",
                                         "hspr",
                                         "ff",
+                                        "fast-downward",
                                         "optimal",
                                         "greedy",
                                         "simulation",
@@ -47,6 +49,7 @@ class Program_Options:
         self.simulation = False
         self.use_hspr = False
         self.use_FF = False
+        self.use_fast_downward = False
         self.beta = 1.0
         self.simulate_from_obs = False
 
@@ -98,6 +101,8 @@ class Program_Options:
                 self.use_hspr = True
             if opcode in ('-F', '--ff'):
                 self.use_FF = True
+            if opcode in ('-L', '--fast-downward'):
+                self.use_fast_downward = True
             if opcode in ('-D', '--simulate-from-obs'):
                 self.simulate_from_obs = True
 

@@ -32,7 +32,7 @@ do
         DIRECTORY="results/${domain}/${degree}"
         # if [ ! -d "$DIRECTORY" ]; then
         #     echo "$DIRECTORY does not exist."
-            sbatch --job-name="${domain}-${degree}" --mem=64G -o "results/slurm.${domain}-${degree}.log" -e "results/slurm.${domain}-${degree}.err" slurm_single_benchmark.sh $domain $degree &
+            sbatch --job-name="${domain}-${degree}" --mem=64G -o "results/slurm.${domain}-${degree}.log" -e "results/slurm.${domain}-${degree}.err" slurm_single_benchmark.sh $domain $degree 1800 32768 -O -L &
         # else
         #     echo "${DIRECTORY} is finished"
         # fi

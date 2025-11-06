@@ -84,7 +84,7 @@ class Probabilistic:
         self.cost_O = self.costs['O']
         self.cost_Not_O = self.costs['neg-O']
 
-    def test(self, index, max_time, max_mem, optimal=False, beta=1.0):
+    def test(self, index, max_time, max_mem, optimal=False, beta=1.0, use_fast_downward=False):
         import math, csv
         # generate the problem with G=H
         hyp_problem = 'hyp_%d_problem.pddl' % index
@@ -102,7 +102,10 @@ class Probabilistic:
             # hack to avoid integer division
             time_bound = max_time // 2
             for id, domain, instance in self.walk('prob-%s-PR' % index):
-                plan_for_G_Obs_cmd = planners.HSP(domain, instance, index, time_bound, max_mem)
+                if use_fast_downward:
+                    plan_for_G_Obs_cmd = planners.FastDownward(domain, instance, index, time_bound, max_mem)
+                else:
+                    plan_for_G_Obs_cmd = planners.HSP(domain, instance, index, time_bound, max_mem)
                 plan_for_G_Obs_cmd.execute()
                 if id == 'O': self.Plan_Time_O = plan_for_G_Obs_cmd.time
                 if id == 'neg-O': self.Plan_Time_Not_O = plan_for_G_Obs_cmd.time

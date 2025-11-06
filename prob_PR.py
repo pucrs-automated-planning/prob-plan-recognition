@@ -70,7 +70,7 @@ def main():
     hyp_time_bounds = [options.max_time // len(hyps) for h in hyps]
 
     for i in range(0, len(hyps)):
-        hyps[i].test(i, hyp_time_bounds[i], options.max_memory, options.optimal)
+        hyps[i].test(i, hyp_time_bounds[i], options.max_memory, options.optimal, 1.0, options.use_fast_downward)
         if hyps[i].cost_O == 1e7 and hyps[i].cost_Not_O == 1e7:
             hyps[i].test_failed = True
         remainder = hyp_time_bounds[i] - hyps[i].total_time
