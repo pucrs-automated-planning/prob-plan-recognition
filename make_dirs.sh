@@ -1,3 +1,5 @@
+#!/bin/bash -l
+
 # create a directory and any necessary parent directories given the only argument passed to this script
 mkdir -p "$1"
 cp -r *.py "$1"
