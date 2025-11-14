@@ -142,9 +142,7 @@ class FastDownward(Planner):
 
     def execute(self):
         # help me get the full path for the home directory here independently of the machine
-        home_dir = os.path.expanduser("~")
-        cmd_string = '%s/prob-plan-recognition/downward/fast-downward.py --alias seq-opt-lmcut --plan-file %s.plan %s %s' % (
-        home_dir, self.noext_problem, self.domain, self.problem)
+        cmd_string = '../downward/fast-downward.py --alias seq-opt-lmcut --plan-file %s.plan %s %s' % (self.noext_problem, self.domain, self.problem)
         self.log = benchmark.Log(self.log_file)
         self.signal, self.time = benchmark.run(cmd_string, self.max_time, self.max_mem, self.log)
         self.gather_data()
