@@ -35,7 +35,7 @@ def main():
     HOME_DIR = os.path.expanduser("~")
     THIS_DIR = os.getcwd()
     DATASET_PATH = f"{HOME_DIR}/goal-plan-recognition-dataset"
-    RESULTS_PATH = "./results"
+    RESULTS_PATH = "../results"
 
     print(f"HOME DIR = {HOME_DIR}")
     print(f"THIS DIR = {THIS_DIR}")
