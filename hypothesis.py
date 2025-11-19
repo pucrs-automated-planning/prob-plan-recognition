@@ -129,7 +129,10 @@ class Probabilistic:
             # hack to avoid integer division
             time_bound = max_time // 2
             for id, domain, instance in self.walk('prob-%s-PR' % index):
-                plan_for_G_Obs_cmd = planners.LAMA(domain, instance, index, time_bound, max_mem)
+                if use_fast_downward:
+                    plan_for_G_Obs_cmd = planners.FastDownward(domain, instance, index, time_bound, max_mem)
+                else:
+                    plan_for_G_Obs_cmd = planners.LAMA(domain, instance, index, time_bound, max_mem)
                 plan_for_G_Obs_cmd.execute()
                 G_Obs_time += plan_for_G_Obs_cmd.time
                 if id == 'O': self.Plan_Time_O = plan_for_G_Obs_cmd.time

@@ -137,12 +137,15 @@ class LAMA(Planner):
         instream.close()
 
 class FastDownward(Planner):
-    def __init__(self, domain, problem, index, max_time=14400, max_mem=2048):
+    def __init__(self, domain, problem, index, max_time=14400, max_mem=2048, optimal=False):
+        self.optimal = optimal
         Planner.__init__(self, domain, problem, index, max_time, max_mem)
 
     def execute(self):
-        # help me get the full path for the home directory here independently of the machine
-        cmd_string = '../downward/fast-downward.py --alias seq-opt-lmcut --plan-file %s.plan %s %s' % (self.noext_problem, self.domain, self.problem)
+        if self.optimal:
+            cmd_string = '../downward/fast-downward.py --alias seq-opt-lmcut --plan-file %s.plan %s %s' % (self.noext_problem, self.domain, self.problem)
+        else:
+            cmd_string = '../downward/fast-downward.py --alias seq-sat-lama-2011 --plan-file %s.plan %s %s' % (self.noext_problem, self.domain, self.problem)
         self.log = benchmark.Log(self.log_file)
         self.signal, self.time = benchmark.run(cmd_string, self.max_time, self.max_mem, self.log)
         self.gather_data()
