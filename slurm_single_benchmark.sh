@@ -3,6 +3,7 @@
 #SBATCH --nodes=1 # number of nodes
 #SBATCH --ntasks=1
 #SBATCH --mem=32G # memory pool for all cores
+#SBATCH --partition=uoa-compute 
 
 module load miniconda3
 conda activate prob-plan-recognition

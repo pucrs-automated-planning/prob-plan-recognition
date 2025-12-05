@@ -7,7 +7,7 @@
 #SBATCH --mem=128G # memory pool for all cores
 
 #SBATCH --ntasks-per-node=20 # one job per node
-#SBATCH --gres=gpu:0 # 0 GPU out of 3
+#SBATCH --partition=uoa-compute 
 
 #SBATCH -o slurm.%j.out # STDOUT
 #SBATCH -e slurm.%j.err # STDERR
