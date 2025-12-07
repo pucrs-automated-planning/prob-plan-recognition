@@ -1,6 +1,6 @@
 # Probabilistic Plan Recognition
 
-Structured Ramirez's implementation of [Probabilistic plan recognition](http://dblp.org/rec/conf/aaai/RamirezG10) organized in a neat repository with links to the dependencies.
+Structured Ramirez's [implementation](https://sites.google.com/site/prasplanning) of [Probabilistic plan recognition](http://dblp.org/rec/conf/aaai/RamirezG10) organized in a neat repository with links to the dependencies.
 
 ## Instructions
 
