@@ -49,7 +49,7 @@ def main() :
 
 	outstream = open( '%s.result'%name, 'w' )
 	
-	print >> outstream, ",".join(res_info)
+	print(",".join(res_info), file=outstream)
 	
 	outstream.close()
 

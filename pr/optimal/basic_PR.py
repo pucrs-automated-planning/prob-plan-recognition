@@ -105,10 +105,10 @@ class Hypothesis:
         for line in instream:
             line = line.strip()
             if '<HYPOTHESIS>' not in line:
-                print >> outstream, line
+                print(line, file=outstream)
             else:
                 for atom in self.atoms:
-                    print >> outstream, atom
+                    print(atom, file=outstream)
 
         outstream.close()
         instream.close()
@@ -146,16 +146,16 @@ def load_hypotheses():
 def write_report(experiment, hyps):
     outstream = open('report.txt', 'w')
 
-    print >> outstream, "Experiment=%s" % experiment
-    print >> outstream, "Num_Hyp=%d" % len(hyps)
+    print("Experiment=%s" % experiment, file=outstream)
+    print("Num_Hyp=%d" % len(hyps), file=outstream)
     for hyp in hyps:
-        print >> outstream, "Hyp_Atoms=%s" % ",".join(hyp.atoms)
+        print("Hyp_Atoms=%s" % ",".join(hyp.atoms), file=outstream)
         if hyp.test_failed:
-            print >> outstream, "Hyp_Delta=unknown"
+            print("Hyp_Delta=unknown", file=outstream)
         else:
-            print >> outstream, "Hyp_Delta=%s" % hyp.Delta
-        print >> outstream, "Hyp_Test_Time=%s" % hyp.total_time
-        print >> outstream, "Hyp_Is_True=%s" % hyp.is_true
+            print("Hyp_Delta=%s" % hyp.Delta, file=outstream)
+        print("Hyp_Test_Time=%s" % hyp.total_time, file=outstream)
+        print("Hyp_Is_True=%s" % hyp.is_true, file=outstream)
 
     outstream.close()
 

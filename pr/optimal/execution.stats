@@ -1,5 +1,5 @@
 Domain=BLOCKS
 Problem=BLOCKS_WORDS
-Preprocessing=0.012
+Preprocessing=0.0028
 Fluents=82
 Operators=130

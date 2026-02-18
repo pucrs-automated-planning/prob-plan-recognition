@@ -13,6 +13,8 @@
 import os
 import resource
 import sys
+import pdb
+import math
 
 class Log:
     SILENT = 0
@@ -60,7 +62,7 @@ def run(cmd, timeout, memory, log=None, verbose=True):
       timeout - timeout in CPU seconds
       memory  - maximum heap size allowed in Megabytes
       log     - the log file (of class benchmark.Log)
-      verbose - If true, also print the heap and time restrictions,
+      verbose - If true, also print(the heap and time restrictions,)
                 the return code of the program and elapsed time.
                 If false, this info is logged if there is a log,
                 but not printed.
@@ -84,10 +86,10 @@ def run(cmd, timeout, memory, log=None, verbose=True):
     if not log:
         log = Log()
 
-    print >> log(log_mode), "Timeout: %d seconds" % timeout
-    print >> log(log_mode), "Heap restriction: %d MB" % memory
-    print >> log(log_mode), "Command: %s" % cmd
-    print >> log(log_mode)
+    print("Timeout: %d seconds" % timeout, file=log(log_mode))
+    print("Heap restriction: %d MB" % memory, file=log(log_mode))
+    print("Command: %s" % cmd, file=log(log_mode))
+    print(file=log(log_mode))
 
     memory *= 1024 * 1024
     log.suspend()
@@ -95,7 +97,7 @@ def run(cmd, timeout, memory, log=None, verbose=True):
     time_passed_before = os.times()[2] + os.times()[3]
     pid = os.fork()
     if not pid:
-        resource.setrlimit(resource.RLIMIT_CPU, (timeout - time_slack, timeout))
+        resource.setrlimit(resource.RLIMIT_CPU, (math.ceil(timeout - time_slack), math.ceil(timeout)))
         # resource.setrlimit(resource.RLIMIT_DATA, (memory, memory))
         # resource.setrlimit(resource.RLIMIT_RSS, (memory, memory))
         resource.setrlimit(resource.RLIMIT_AS, (memory, memory))
@@ -111,10 +113,9 @@ def run(cmd, timeout, memory, log=None, verbose=True):
     time_passed = (os.times()[2] + os.times()[3]) - time_passed_before
 
     if signal == 0:
-        print >> log(log_mode), "\nTime spent: %.3f seconds" % time_passed
+        print("\nTime spent: %.3f seconds" % time_passed, file=log(log_mode))
     else:
-        print >> log(log_mode), "\nFailed! [Signal %d, Time %.3f seconds]" \
-              % (signal, time_passed)
+        print("\nFailed! [Signal %d, Time %.3f seconds]" % (signal, time_passed), file=log(log_mode))
 
     return signal, time_passed
 

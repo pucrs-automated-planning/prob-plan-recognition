@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from __future__ import with_statement
+
 
 from collections import defaultdict
 from copy import deepcopy
@@ -43,7 +43,7 @@ def strips_to_sas_dictionary(groups, assert_partial):
             dictionary.setdefault(atom, []).append((var_no, val_no))
     if assert_partial:
         assert all(len(sas_pairs) == 1
-                   for sas_pairs in dictionary.itervalues())
+                   for sas_pairs in dictionary.values())
     return [len(group) + 1 for group in groups], dictionary
 
 def translate_strips_conditions_aux(conditions, dictionary, ranges):
@@ -112,14 +112,14 @@ def translate_strips_conditions_aux(conditions, dictionary, ranges):
                 # this atom. So we need to introduce a new condition:
                 # We can select any from new_condition and currently prefer the
                 # smalles one.
-                candidates = sorted(new_condition.items(), 
-                                    lambda x,y: cmp(len(x[1]),len(y[1])))
+                candidates = sorted(list(new_condition.items()), 
+                                    key=lambda x: len(x[1]))
                 var, vals = candidates[0]
                 condition[var] = vals
 
         def multiply_out(condition): # destroys the input
-            sorted_conds = sorted(condition.items(), 
-                                  lambda x,y: cmp(len(x[1]),len(y[1])))
+            sorted_conds = sorted(list(condition.items()), 
+                                  key=lambda x: len(x[1]))
             flat_conds = [{}]
             for var, vals in sorted_conds:
                 if len(vals) == 1:
@@ -219,14 +219,14 @@ def translate_strips_conditions_goal_aux(conditions, dictionary, ranges):
                 # this atom. So we need to introduce a new condition:
                 # We can select any from new_condition and currently prefer the
                 # smalles one.
-                candidates = sorted(new_condition.items(), 
-                                    lambda x,y: cmp(len(x[1]),len(y[1])))
+                candidates = sorted(list(new_condition.items()), 
+                                    key=lambda x: len(x[1]))
                 var, vals = candidates[0]
                 condition[var] = vals
 
         def multiply_out(condition): # destroys the input
-            sorted_conds = sorted(condition.items(), 
-                                  lambda x,y: cmp(len(x[1]),len(y[1])))
+            sorted_conds = sorted(list(condition.items()), 
+                                  key=lambda x: len(x[1]))
             flat_conds = [{}]
             for var, vals in sorted_conds:
                 if len(vals) == 1:
@@ -290,7 +290,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                                                          mutex_ranges)
         if eff_condition_list is None: # Impossible condition for this effect.
             continue
-        eff_condition = [eff_cond.items() 
+        eff_condition = [list(eff_cond.items()) 
                          for eff_cond in eff_condition_list]
         for var, val in dictionary[fact]:
             if condition.get(var) == val:
@@ -314,7 +314,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
         eff_condition_list = translate_strips_conditions(conditions, dictionary, ranges, mutex_dict, mutex_ranges)
         if eff_condition_list is None:
             continue
-        eff_condition = [eff_cond.items() 
+        eff_condition = [list(eff_cond.items()) 
                          for eff_cond in eff_condition_list]
         for var, val in dictionary[fact]:
             none_of_those = ranges[var] - 1
@@ -354,8 +354,8 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                             # decent check that the precondition is indeed inconsistent
                             # (using *all* mutexes), but that seems tough with this
                             # convoluted code, so we just warn and reject the operator.
-                            print "Warning: %s rejected. Cross your fingers." % (
-                                operator.name)
+                            print("Warning: %s rejected. Cross your fingers." % (
+                                operator.name))
                             return None
                             assert False
 
@@ -391,11 +391,11 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
 
     if ADD_IMPLIED_PRECONDITIONS:
         implied_precondition = set()
-        for fact in condition.iteritems():
+        for fact in condition.items():
             implied_precondition.update(implied_facts[fact])
 
     pre_post = []
-    for var, (post, eff_condition_lists) in effect.iteritems():
+    for var, (post, eff_condition_lists) in effect.items():
         pre = condition.pop(var, -1)
         if ranges[var] == 2:
             # Apply simplifications for binary variables.
@@ -411,7 +411,7 @@ def translate_strips_operator_aux(operator, dictionary, ranges, mutex_dict,
                 #     var, pre, operator.name)
         for eff_condition in eff_condition_lists:
             pre_post.append((var, pre, post, eff_condition))
-    prevail = condition.items()
+    prevail = list(condition.items())
 
     return sas_tasks.SASOperator(operator.name, prevail, pre_post, operator.cost)
 
@@ -458,7 +458,7 @@ def translate_strips_axiom(axiom, dictionary, ranges, mutex_dict, mutex_ranges):
         [effect] = dictionary[axiom.effect]
     axioms = []
     for condition in conditions:
-        axioms.append(sas_tasks.SASAxiom(condition.items(), effect))
+        axioms.append(sas_tasks.SASAxiom(list(condition.items()), effect))
     return axioms
 
 def translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts):
@@ -503,14 +503,14 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     ## negative goal is part of finite domain variable with only two
     ## values, which is most of the time the case, and hence refrain from
     ## introducing axioms (that are not supported by all heuristics)
-    goal_pairs = goal_dict_list[0].items()
+    goal_pairs = list(goal_dict_list[0].items())
     goal = sas_tasks.SASGoal(goal_pairs)
 
     operators = translate_strips_operators(actions, strips_to_sas, ranges, mutex_dict, mutex_ranges, implied_facts)
     axioms = translate_strips_axioms(axioms, strips_to_sas, ranges, mutex_dict, mutex_ranges)
 
     axiom_layers = [-1] * len(ranges)
-    for atom, layer in axiom_layer_dict.iteritems():
+    for atom, layer in axiom_layer_dict.items():
         assert layer >= 0
         [(var, val)] = strips_to_sas[atom]
         axiom_layers[var] = layer
@@ -519,7 +519,7 @@ def translate_task(strips_to_sas, ranges, mutex_dict, mutex_ranges, init, goals,
     return sas_tasks.SASTask(variables, init, goal, operators, axioms, metric)
 
 def unsolvable_sas_task(msg):
-    print "%s! Generating unsolvable task..." % msg
+    print("%s! Generating unsolvable task..." % msg)
     write_translation_key([])
     write_mutex_key([])
     variables = sas_tasks.SASVariables([2], [-1])
@@ -569,9 +569,9 @@ def pddl_to_sas(task):
             task.init, goal_list, actions, axioms, task.use_min_cost_metric,
             implied_facts)
 
-    print "%d implied effects removed" % removed_implied_effect_counter
-    print "%d effect conditions simplified" % simplified_effect_condition_counter
-    print "%d implied preconditions added" % added_implied_precondition_counter
+    print("%d implied effects removed" % removed_implied_effect_counter)
+    print("%d effect conditions simplified" % simplified_effect_condition_counter)
+    print("%d implied preconditions added" % added_implied_precondition_counter)
     
     with timers.timing("Building mutex information"):
         mutex_key = build_mutex_key(strips_to_sas, mutex_groups)
@@ -599,7 +599,7 @@ def build_mutex_key(strips_to_sas, groups):
                 for var, val in strips_to_sas[fact]:
                     group_key.append((var, val, str(fact)))
             else:
-                print "not in strips_to_sas, left out:", fact
+                print("not in strips_to_sas, left out:", fact)
         group_keys.append(group_key)
     return group_keys
 
@@ -650,22 +650,22 @@ def build_implied_facts(strips_to_sas, groups, mutex_groups):
 
 
 def write_translation_key(translation_key):
-    groups_file = file("test.groups", "w")
+    groups_file = open("test.groups", "w")
     for var_no, var_key in enumerate(translation_key):
-        print >> groups_file, "var%d:" % var_no
+        print("var%d:" % var_no, file=groups_file)
         for value, value_name in enumerate(var_key):
-            print >> groups_file, "  %d: %s" % (value, value_name)
+            print("  %d: %s" % (value, value_name), file=groups_file)
     groups_file.close()
 
 def write_mutex_key(mutex_key):
-    invariants_file = file("all.groups", "w")
-    print >> invariants_file, "begin_groups"
-    print >> invariants_file, len(mutex_key)
+    invariants_file = open("all.groups", "w")
+    print("begin_groups", file=invariants_file)
+    print(len(mutex_key), file=invariants_file)
     for group in mutex_key:
         #print map(str, group)
         no_facts = len(group)
-        print >> invariants_file, "group"
-        print >> invariants_file, no_facts
+        print("group", file=invariants_file)
+        print(no_facts, file=invariants_file)
         for var, val, fact in group:
             #print fact
             assert str(fact).startswith("Atom ")
@@ -683,8 +683,8 @@ def write_mutex_key(mutex_key):
                 print_line += str(arg).strip() + " "
             #print fact
             #print print_line
-            print >> invariants_file, print_line
-    print >> invariants_file, "end_groups"
+            print(print_line, file=invariants_file)
+    print("end_groups", file=invariants_file)
     invariants_file.close()
 
 
@@ -701,5 +701,5 @@ if __name__ == "__main__":
 
     sas_task = pddl_to_sas(task)
     with timers.timing("Writing output"):
-        sas_task.output(file("output.sas", "w"))
-    print "Done! %s" % timer
+        sas_task.output(open("output.sas", "w"))
+    print("Done! %s" % timer)

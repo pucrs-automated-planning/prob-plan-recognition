@@ -27,6 +27,16 @@ bash build.sh
 popd
 ```
 
+### Building HSPf
+
+You need G++ 7 for this (old code hassles)
+```bash
+pushd hspf
+./build-g++7-permissive
+popd
+cp hspf/hspf pr/optimal
+```
+
 ## Original Notes (From Ramirez):
 
 - You'll need to compile the program for mapping PR tasks into planning tasks (see 'obs-compiler' folder) and put the resulting executable binary file ('plan2pr') inside this folder.

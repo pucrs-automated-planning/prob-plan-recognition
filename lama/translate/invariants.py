@@ -46,7 +46,7 @@ def invert_list(alist):
   return result
 
 def instantiate_factored_mapping(pairs):
-  part_mappings = [[zip(preimg, perm_img) for perm_img in tools.permutations(img)]
+  part_mappings = [[list(zip(preimg, perm_img)) for perm_img in tools.permutations(img)]
                    for (preimg, img) in pairs]
   return tools.cartesian_product(part_mappings)
 
@@ -84,7 +84,7 @@ class InvariantPart:
     other_arg_to_pos = invert_list(other_literal.args)
     factored_mapping = []
 
-    for key, other_positions in other_arg_to_pos.iteritems():
+    for key, other_positions in other_arg_to_pos.items():
       own_positions = arg_to_ordered_pos.get(key, [])
       len_diff = len(own_positions) - len(other_positions)
       if len_diff >= 1 or len_diff <= -2 or len_diff == -1 and not allowed_omissions:

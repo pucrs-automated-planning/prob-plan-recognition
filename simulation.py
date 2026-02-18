@@ -8,10 +8,10 @@ def generate_pddl_for_hyp_plan( out_name, atoms ) :
 	for line in instream :
 		line = line.strip()
 		if '<HYPOTHESIS>' not in line :
-			print >> outstream, line
+			print(line, file=outstream)
 		else :
 			for atom in atoms :
-				print >> outstream, atom
+				print(atom, file=outstream)
 	
 	outstream.close()
 	instream.close()
@@ -39,7 +39,7 @@ class Agent :
 	def save_plan( self ) :
 		outstream = open( 'agent-%d-plan.txt'%self.index, 'w' )
 		for op in self.plan :
-			print >> outstream, op
+			print(op, file=outstream)
 		outstream.close()
 
 class Observer :
@@ -53,7 +53,7 @@ class Observer :
 		# write obs.dat
 		outstream = open( 'obs.dat', 'w' )
 		for o in self.obs :
-			print >> outstream, o.upper()
+			print(o.upper(), file=outstream)
 		outstream.close()
 
 		for i in range(0, len(self.hyps) ) :

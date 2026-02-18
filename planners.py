@@ -135,3 +135,27 @@ class LAMA(Planner):
                 self.optimal = True
 
         instream.close()
+
+class FastDownward(Planner):
+    def __init__(self, domain, problem, index, max_time=14400, max_mem=2048, optimal=False):
+        self.optimal = optimal
+        Planner.__init__(self, domain, problem, index, max_time, max_mem)
+
+    def execute(self):
+        if self.optimal:
+            cmd_string = '../downward/fast-downward.py --alias seq-opt-lmcut --plan-file %s.plan %s %s' % (self.noext_problem, self.domain, self.problem)
+        else:
+            cmd_string = '../downward/fast-downward.py --alias seq-sat-lama-2011 --plan-file %s.plan %s %s' % (self.noext_problem, self.domain, self.problem)
+        self.log = benchmark.Log(self.log_file)
+        self.signal, self.time = benchmark.run(cmd_string, self.max_time, self.max_mem, self.log)
+        self.gather_data()
+
+    def gather_data(self):
+        if self.signal == 0 and os.path.exists('%s.plan' % self.noext_problem):
+            instream = open('%s.plan' % self.noext_problem)
+            for line in instream:
+                line = line.strip()
+                if line and line[0] != ';':
+                    self.cost += 1
+
+            instream.close()

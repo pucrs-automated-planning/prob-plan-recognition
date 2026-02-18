@@ -1,5 +1,4 @@
-import string
-import conditions
+from . import conditions
 
 def parse_expression(exp):
     if isinstance(exp, list):
@@ -7,7 +6,7 @@ def parse_expression(exp):
         return PrimitiveNumericExpression(functionsymbol,
                                           [conditions.parse_term(arg) for arg in exp[1:]])
     elif exp.replace(".","").isdigit():
-        return NumericConstant(string.atof(exp))
+        return NumericConstant(float(exp))
     else:
         return PrimitiveNumericExpression(exp,[])
 
@@ -27,7 +26,7 @@ class FunctionalExpression(object):
     def __init__(self, parts):
         self.parts = tuple(parts)
     def dump(self, indent="  "):
-        print "%s%s" % (indent, self._dump())
+        print("%s%s" % (indent, self._dump()))
         for part in self.parts:
             part.dump(indent + "  ")
     def _dump(self):
@@ -59,7 +58,7 @@ class PrimitiveNumericExpression(FunctionalExpression):
     def __str__(self):
         return "%s %s(%s)" % ("PNE", self.symbol, ", ".join(map(str, self.args)))
     def dump(self, indent="  "):
-        print "%s%s" % (indent, self._dump())
+        print("%s%s" % (indent, self._dump()))
         for arg in self.args:
             arg.dump(indent + "  ")
     def _dump(self):
@@ -84,7 +83,7 @@ class FunctionAssignment(object):
     def __str__(self):
         return "%s %s %s" % (self.__class__.__name__, self.fluent, self.expression) 
     def dump(self, indent="  "):
-        print "%s%s" % (indent, self._dump())
+        print("%s%s" % (indent, self._dump()))
         self.fluent.dump(indent + "  ")
         self.expression.dump(indent + "  ")
     def _dump(self):
