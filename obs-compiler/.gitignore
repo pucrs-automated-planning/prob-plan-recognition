@@ -1,0 +1,11 @@
+# Build products
+*.o
+*.a
+pr2plan
+mod-metric-ff/ff
+mod-metric-ff/test_lib
+
+# Generated parser/lexer sources
+lex.*.c
+*.tab.c
+*.output
